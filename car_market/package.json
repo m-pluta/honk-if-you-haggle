@@ -1,10 +1,12 @@
 {
   "name": "car_market_app",
   "version": "1.0.0",
-  "description": "The template for this project was sourced from https://startbootstrap.com/template/bare under an MIT License",
+  "description": "File for management of all dependencies in this project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "eslint server.js",
+    "start": "nodemon server.js",
+    "test": "jest"
   },
   "author": "Michal Pluta",
   "license": "ISC",
