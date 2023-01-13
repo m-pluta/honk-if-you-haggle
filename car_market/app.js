@@ -27,6 +27,15 @@ app.get('/cars', function (req, resp) {
     
     resp.send(filteredData);
 });
+app.get('/cars/pages', function (req, resp) {
+    const page_size = req.query.size    // How many items are displayed on each page
+    
+    const number_of_items = Object.values(car_market_data["cars"]).length
+    
+    const num_of_pages = Math.ceil(number_of_items / page_size)
+    
+    resp.send(JSON.stringify(num_of_pages));
+});
 
 // Export app
 module.exports = app;
