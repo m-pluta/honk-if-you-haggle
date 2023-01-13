@@ -5,6 +5,9 @@ const app = express();
 const fileNameForJSON = './car_market_db.json';
 const car_market_data = require(fileNameForJSON);
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'client')));
+
 app.get('/car/:id', function (req, resp) {
     const req_id = req.params.id;   // ID of the car
     
