@@ -1,9 +1,16 @@
 const endpointRoot = 'http://127.0.0.1:8080/'
 
+function clearCardLayout() {
+    carListElt = document.getElementById('carList');
+    carListElt.innerHTML = ""
+}
+
 async function listCars() {
     const response = await fetch(endpointRoot + 'cars?size=10&page=1/')
     const text = await response.text()
     const data = JSON.parse(text)
+
+    clearCardLayout()
 
     carListElt = document.getElementById('carList');
 
