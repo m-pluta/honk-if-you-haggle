@@ -8,6 +8,7 @@ const car_market_data = require(fileNameForJSON);
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'client')));
 
+// Returns data about a specific car with a specific id
 app.get('/car/:id', function (req, resp) {
     const req_id = req.params.id;   // ID of the car
     
@@ -19,24 +20,11 @@ app.get('/car/:id', function (req, resp) {
     // Return the first entry in the array in the unexpected case that two cars have the same id
     resp.send(JSON.stringify(filteredData[0]));
 });
-app.get('/cars', function (req, resp) {
-    const page_size = parseInt(req.query.size)    // How many items are displayed on each page
-    const page = parseInt(req.query.page)         // Which page of items should be displayed
 
-    const offset = (page - 1) * page_size;  // Index of the first item to be displayed
-    // Slice the data so that it contains only the items on that specific page
-    let filteredData = car_market_data["cars"].slice(offset, offset + page_size)    
-    
+// Returns data about all the cars
+app.get('/cars', function (req, resp) {
+    let filteredData = car_market_data["cars"]   
     resp.send(JSON.stringify(filteredData));
-});
-app.get('/cars/pages', function (req, resp) {
-    const page_size = req.query.size    // How many items are displayed on each page
-    
-    const number_of_items = Object.values(car_market_data["cars"]).length
-    
-    const num_of_pages = Math.ceil(number_of_items / page_size)
-    
-    resp.send(JSON.stringify(num_of_pages));
 });
 
 // Export app
