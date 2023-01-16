@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 
-// Import car_market database
-const fileNameForJSON = './car_market_db.json';
+// Import honk_if_you_haggle database
+const fileNameForJSON = './honk_if_you_haggle_db.json';
 const car_market_data = require(fileNameForJSON);
 
 const path = require('path');

@@ -1,5 +1,5 @@
 {
-  "name": "car_market_app",
+  "name": "honk_if_you_haggle_app",
   "version": "1.0.0",
   "description": "File for management of all dependencies in this project",
   "main": "index.js",
