@@ -44,8 +44,22 @@ async function listCars () {
         listItem.addEventListener('click', (event) => {
             const id = listItem.id.split(':')[1];
             console.log(id);
+            loadCar(id);
         });
     }
+}
+
+async function loadCar (id) {
+    const websiteBody = document.getElementById('mainWebsiteBody');
+
+    // Visually hide main website body
+
+    // Fetch data about specific car
+    const response = await fetch(endpointRoot + 'car/' + id);
+    const text = await response.text();
+    const data = JSON.parse(text);
+
+    // Insert fetched data into DOM
 }
 
 // Purpose: Load all cars into card-layout when DOM loads
