@@ -1,0 +1,21 @@
+.card-car {
+    border-radius: 15px;
+}
+
+/* On-hover animation taken from https://stackoverflow.com/questions/50306207/how-to-create-these-animations-to-the-bootstrap-cards-its-incredibly-complex-f*/
+.card-car:hover {
+    transform: scale(1.01);
+    transition: 0.2s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-car-text {
+    margin-bottom: 0%;
+}
+
+.card-img-rounded {
+    width:auto;
+    border-radius: 12px;
+    object-fit: contain; /* keep aspect ratio */
+    max-height: 30rem;
+}

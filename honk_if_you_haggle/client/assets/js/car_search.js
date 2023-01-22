@@ -6,7 +6,7 @@ function clearCardLayout() {
 }
 
 async function listCars() {
-    const response = await fetch(endpointRoot + 'cars?size=10&page=1/')
+    const response = await fetch(endpointRoot + 'cars/')
     const text = await response.text()
     const data = JSON.parse(text)
 
@@ -20,15 +20,20 @@ async function listCars() {
     for (const carData of data) {
         var copyHTML = document.importNode(templateContent, true);
 
-        copyHTML.querySelector(".card-title").textContent = carData["make"] + " " + carData["model"];
-        copyHTML.querySelector(".card-text").textContent = "Color: " + carData["color"] + ", Price: £" + carData["price"];
-    
-        carListElt.appendChild(copyHTML);
+        copyHTML.querySelector(".card-car-title").textContent = carData["make"] + " " + carData["model"];
+        copyHTML.querySelector(".card-car-id").innerHTML = `<strong>ID: </strong> ${carData["id"]}`;
+        copyHTML.querySelector(".card-car-year").innerHTML = `<strong>Year: </strong> ${carData["year"]}`;
+        copyHTML.querySelector(".card-car-mileage").inner = `<strong>Mileage: </strong> ${carData["mileage"]}`;
+        copyHTML.querySelector(".card-car-price").textContent = `£${carData["price"]}`;
+        copyHTML.querySelector(".card-car").id = "carID:" + carData["id"]
+
+        carListElt.appendChild(copyHTML);   
     }
 
-    const listItems = carListElt.querySelectorAll('.card');
+    carListElt = document.getElementById('carList');
+    const listItems = carListElt.querySelectorAll('.card-car');
     for (const listItem of listItems) {
-        listItem.addEventListener('click', (event) => console.log("click"));
+        listItem.addEventListener('click', (event) => console.log(listItem.id.split(":")[1]));
     }
 }
 

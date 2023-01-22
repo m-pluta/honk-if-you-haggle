@@ -8,10 +8,11 @@
         <title>HonkIfYouHaggle</title>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="assets/css/styles.css" rel="stylesheet" />
+        <link href="assets/css/custom.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
             <div class="container">
                 <a class="navbar-brand" href="#">Honk If You Haggle</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -35,85 +36,82 @@
 
         <div class="container">
             <div id="mainBody" class="row">
-
-                <!-- Filter menu -->
-                <div class="col-xxl-2 col-md-2">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Filter Settings</h5>
-                            <p class="card-text">This is the menu to select filter settings for searching</p>
+                <div class="container px-3">
+                    <div id="carList" class="row g-3">
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card card-car h-100">
+                                <img src="assets/images/toyota_yaris.jpg" class="card-img-top card-img-rounded mt-3 mx-3" alt="" />
+                                <div class="card-body">
+                                    <h2 class="card-title">Toyota Yaris</h2>
+                                    <p class="card-car-text ml-5" style="font-size: 130%; margin-left: 0.5rem;">
+                                        <strong>Year: </strong> 2017
+                                    </p>
+                                    <p class="card-car-text mb-4" style="font-size: 130%; margin-left: 0.5rem;">
+                                        <strong>Mileage: </strong> 23,000
+                                    </p>
+                                    <h2 class="card-car-text text-end mb-1">
+                                        £30000
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card">
+                                <img src="assets/images/loading.gif" alt="Image of a Toyota Yaris car" class="card-img-top card-car-img">
+                                <div class="card-body">
+                                    <h5 class="card-title">Toyota Yaris</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card">
+                                <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mercedes Benz</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card">
+                                <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mitsubishi Outlander</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card">
+                                <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ford Mustang</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card rounded-20">
+                                <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">Honda Civic</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card">
+                                <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tesla Model S</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card Layout -->
-                <div class="col-xxl-9 col-md-9">
-                    <div class="container">
-                        <div id="carList" class="row g-3">
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card">
-                                    <img src="assets/images/loading.gif" alt="Image of a Toyota Yaris car" class="card-img-top card-car-img">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Toyota Yaris</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card">
-                                    <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mercedes Benz</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card">
-                                    <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mitsubishi Outlander</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card">
-                                    <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Ford Mustang</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card rounded-20">
-                                    <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Honda Civic</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 col-xxl-4">
-                                <div class="card">
-                                    <img src="assets/images/loading.gif" alt="Animation of loading icon spinning" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tesla Model S</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic nihil odio autem aut accusantium nisi nemo dignissimos facilis ad! Sunt, incidunt minima eligendi voluptatibus laboriosam sit adipisci nihil. Eius, quisquam?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Empty section - For ads -->
-                <div class="col-xxl-1 col-md-1">
-                    <div class="text-center">
-                        <!-- Empty filler -->
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -121,20 +119,39 @@
         <div class="container">
             <div class="text-center mt-5">
                 <hr class="divider" />
-                <h1>Car Market</h1>
-                <p class="lead">A used car market place in the form of a single-page app made by Michal Pluta</p>
-                <p>Made in part using Bootstrap</p>
+                <h1>Honk If You Haggle</h1>
+                <p class="lead">A used-car marketplace in the form of a single-page app made by Michal Pluta</p>
+                <p>Made in part using the Bootstrap framework</p>
             </div>
         </div>
 
-        <!-- Template for an empty Card element -->
+        <!-- Template for image in each car card -->
+        <template>
+            <img src="" class="card-img-top card-img-rounded mt-2 mx-2" alt="" />
+        </template>
+
         <template id="carCardTemplate">
-            <div class="col-12 col-lg-6 col-xxl-4">
-                <div class="card">
-                    <img src="assets/images/loading.gif" alt="Image of a Toyota Yaris car" class="card-img-top card-car-img">
+            <div id="test1" class="col-12 col-lg-6 col-xxl-4">
+                <div id="test2" class="card card-car h-100">
+                    <div class="d-flex justify-content-center align-items-center" style="min-height:250px">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
+                        <h3 class="card-title card-car-title">Toyota Yaris</h3>
+                        <p class="card-car-text card-car-id">
+                            <strong>ID: </strong> 1
+                        </p>
+                        <p class="card-car-text card-car-year">
+                            <strong>Year: </strong> 2017
+                        </p>
+                        <p class="card-car-text card-car-mileage mb-4">
+                            <strong>Mileage: </strong> 23,000
+                        </p>
+                        <h3 class="card-car-text card-car-price text-end mb-1">
+                            £30000
+                        </h3>
                     </div>
                 </div>
             </div>
