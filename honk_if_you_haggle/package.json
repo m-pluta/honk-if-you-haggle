@@ -4,7 +4,7 @@
   "description": "File for management of all dependencies in this project",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint server.js",
+    "pretest": "eslint server.js app.js client/assets/js/car_search.js",
     "start": "nodemon server.js",
     "test": "jest"
   },
