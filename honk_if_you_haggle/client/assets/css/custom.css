@@ -19,4 +19,5 @@
     border-radius: 12px;
     object-fit: contain; /* keep aspect ratio */
     max-height: 30rem;
+    min-height: 16rem;
 }

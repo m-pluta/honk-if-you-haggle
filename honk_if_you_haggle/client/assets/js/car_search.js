@@ -15,7 +15,7 @@ async function listCars () {
     const text = await response.text();
     const data = JSON.parse(text);
 
-    clearCardLayout();
+    // clearCardLayout();
 
     const carListElt = document.getElementById('carList');
 

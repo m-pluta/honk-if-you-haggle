@@ -59,6 +59,31 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 col-xxl-4">
+                            <div class="card card-car h-100">
+                                <div class="d-flex justify-content-center align-items-center card-img-top card-img-rounded mt-3 mx-3">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title placeholder-glow">
+                                        <span class="placeholder col-6"></span>
+                                    </h3>
+                                    <p class="card-car-text placeholder-glow" style="font-size: 130%; margin-left: 0.5rem;">
+                                        <span class="placeholder col-2"></span>
+                                        <span class="placeholder col-7"></span>
+                                    </p>
+                                    <p class="card-car-text placeholder-glow mb-4" style="font-size: 130%; margin-left: 0.5rem;">
+                                        <span class="placeholder col-3"></span>
+                                        <span class="placeholder col-6"></span>
+                                    </p>
+                                    <h3 class="card-car-text placeholder-glow text-end mb-1">
+                                        <span class="placeholder col-3"></span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xxl-4">
                             <div class="card">
                                 <img src="assets/images/loading.gif" alt="Image of a Toyota Yaris car" class="card-img-top card-car-img">
                                 <div class="card-body">
@@ -119,7 +144,7 @@
         </div>
 
         <!-- Page footer-->
-        <div class="container">
+        <div class="container visually-hidden">
             <div class="text-center mt-5">
                 <hr class="divider" />
                 <h1>Honk If You Haggle</h1>
@@ -131,6 +156,34 @@
         <!-- Template for image in each car card -->
         <template>
             <img src="" class="card-img-top card-img-rounded mt-2 mx-2" alt="" />
+        </template>
+
+        <template id="cardCardPlaceholderTemplate">
+            <div class="col-12 col-lg-6 col-xxl-4">
+                <div class="card card-car h-100">
+                    <div class="d-flex justify-content-center align-items-center" style="height:30rem">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h3>
+                        <p class="card-car-text placeholder-glow" style="font-size: 130%; margin-left: 0.5rem;">
+                            <span class="placeholder col-2"></span>
+                            <span class="placeholder col-7"></span>
+                        </p>
+                        <p class="card-car-text placeholder-glow mb-4" style="font-size: 130%; margin-left: 0.5rem;">
+                            <span class="placeholder col-3"></span>
+                            <span class="placeholder col-6"></span>
+                        </p>
+                        <h3 class="card-car-text placeholder-glow text-end mb-1">
+                            <span class="placeholder col-3"></span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
         </template>
 
         <!-- Template for each car card -->
