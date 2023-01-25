@@ -15,7 +15,7 @@ async function listCars () {
     const text = await response.text();
     const data = JSON.parse(text);
 
-    // clearCardLayout();
+    clearCardLayout();
 
     const carListElt = document.getElementById('carList');
 
@@ -53,6 +53,7 @@ async function loadCar (id) {
     const websiteBody = document.getElementById('mainWebsiteBody');
 
     // Visually hide main website body
+    // websiteBody.classList.add('visually-hidden');
 
     // Fetch data about specific car
     const response = await fetch(endpointRoot + 'car/' + id);
