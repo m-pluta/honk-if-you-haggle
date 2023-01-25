@@ -63,5 +63,15 @@ async function loadCar (id) {
     // Insert fetched data into DOM
 }
 
+function attachModalEventListeners () {
+
+    
+}
+
+
+
 // Purpose: Load all cars into card-layout when DOM loads
  document.addEventListener('DOMContentLoaded', listCars);
+
+ // Purpose: Attach modal on-click event listeners
+ document.addEventListener('DOMContentLoaded', attachModalEventListeners);
