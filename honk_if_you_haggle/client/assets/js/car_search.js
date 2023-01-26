@@ -128,13 +128,16 @@ function attachClearButtonListener () {
     const btnClear = document.getElementById('btnModalClear');
 
     btnClear.addEventListener('click', (event) => {
-        document.getElementById('validationModalImage').value = '';
-        document.getElementById('validationModalMake').value = '';
-        document.getElementById('validationModalModel').value = '';
-        document.getElementById('validationModalYear').value = '';
-        document.getElementById('validationModalMileage').value = '';
-        document.getElementById('validationModalColour').value = '';
-        document.getElementById('validationModalPrice').value = '';
+        const elementSuffixes = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+
+        for (let i = 0; i < elementSuffixes.length; i++) {
+            const elementString = 'validationModal' + elementSuffixes[i];
+            const element = document.getElementById(elementString);
+
+            element.value = '';
+            element.classList.remove('is-valid');
+            element.classList.remove('is-invalid');
+        }
     });
 }
 

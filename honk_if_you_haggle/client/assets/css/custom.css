@@ -21,3 +21,7 @@
     max-height: 30rem;
     min-height: 16rem;
 }
+
+.modal-content {
+    border-radius: 12px;
+}
