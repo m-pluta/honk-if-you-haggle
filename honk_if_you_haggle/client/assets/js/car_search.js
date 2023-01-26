@@ -53,7 +53,7 @@ async function loadCar (id) {
     const websiteBody = document.getElementById('mainWebsiteBody');
 
     // Visually hide main website body
-    // websiteBody.classList.add('visually-hidden');
+    websiteBody.classList.add('visually-hidden');
 
     // Fetch data about specific car
     const response = await fetch(endpointRoot + 'car/' + id);
@@ -64,11 +64,79 @@ async function loadCar (id) {
 }
 
 function attachModalEventListeners () {
-
-    
+    attachValidationListeners();
+    attachClearButtonListener();
 }
 
+function attachValidationListeners () {
+    const regexLettersWhitespace = /^(?=\S)[A-Za-z\s]+$/;
+    const regexLettersWhitespaceNumbers = /^(?=\S)[A-Za-z0-9\s]+$/;
+    const regexNumbers = /^[0-9]+$/;
+    const regexPrice = /^£[0-9]+(,[0-9]{3})*$/;
 
+    const formImage = document.getElementById('validationModalImage');
+    const formMake = document.getElementById('validationModalMake');
+    const formModel = document.getElementById('validationModalModel');
+    const formYear = document.getElementById('validationModalYear');
+    const formMileage = document.getElementById('validationModalMileage');
+    const formColour = document.getElementById('validationModalColour');
+    const formPrice = document.getElementById('validationModalPrice');
+
+    formImage.addEventListener('input', (event) => {
+        const path = formImage.value;
+        const arr = path.split('.');
+        const regex = /^jpg|jpeg|png|webp$/;
+        if (regex.test(arr[arr.length - 1])) {
+            formImage.classList.remove('is-invalid');
+            formImage.classList.add('is-valid');
+        } else {
+            formImage.classList.remove('is-valid');
+            formImage.classList.add('is-invalid');
+        }
+    });
+    formMake.addEventListener('input', (event) => {
+        changeValidity(formMake, regexLettersWhitespace.test(formMake.value.trim()));
+    });
+    formModel.addEventListener('input', (event) => {
+        changeValidity(formModel, regexLettersWhitespaceNumbers.test(formModel.value.trim()));
+    });
+    formYear.addEventListener('input', (event) => {
+        changeValidity(formYear, regexNumbers.test(formYear.value.trim()));
+    });
+    formMileage.addEventListener('input', (event) => {
+        changeValidity(formMileage, regexNumbers.test(formMileage.value.trim()));
+    });
+    formColour.addEventListener('input', (event) => {
+        changeValidity(formColour, regexLettersWhitespace.test(formColour.value.trim()));
+    });
+    formPrice.addEventListener('input', (event) => {
+        changeValidity(formPrice, regexPrice.test(formPrice.value.trim()));
+    });
+}
+
+function changeValidity (form, valid) {
+    if (valid) {
+        form.classList.remove('is-invalid');
+        form.classList.add('is-valid');
+    } else {
+        form.classList.remove('is-valid');
+        form.classList.add('is-invalid');
+    }
+}
+
+function attachClearButtonListener () {
+    const btnClear = document.getElementById('btnModalClear');
+
+    btnClear.addEventListener('click', (event) => {
+        document.getElementById('validationModalImage').value = '';
+        document.getElementById('validationModalMake').value = '';
+        document.getElementById('validationModalModel').value = '';
+        document.getElementById('validationModalYear').value = '';
+        document.getElementById('validationModalMileage').value = '';
+        document.getElementById('validationModalColour').value = '';
+        document.getElementById('validationModalPrice').value = '';
+    });
+}
 
 // Purpose: Load all cars into card-layout when DOM loads
  document.addEventListener('DOMContentLoaded', listCars);

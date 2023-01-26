@@ -43,9 +43,12 @@
                     <div>
                         <label for="validationModalImage" class="form-label">Image of car</label>
                         <div class="input-group has-validation">
-                            <input type="file" class="form-control is-invalid" accept=".jpg,.png,.webp" id="validationModalImage" aria-describedby="validationModalImageFeedback" required>
-                            <div id="validationModalImageFeedback" class="invalid-feedback">
+                            <input type="file" class="form-control is-valid" accept=".jpg,.jpeg,.png,.webp" id="validationModalImage" aria-describedby="validationModalImageFeedback" required>
+                            <div id="validationModalImageInvalidFeedback" class="invalid-feedback">
                                 You must provide an image of the car.
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
                             </div>
                         </div>
                     </div>
@@ -57,9 +60,12 @@
                         <div class="col-auto col-sm-6 mb-2">
                             <label for="validationModalMake" class="form-label">Make of car</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control is-invalid" placeholder="e.g. Toyota" id="validationModalMake" aria-describedby="validationModalMakeFeedback" required>
-                                <div id="validationModalMakeFeedback" class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="e.g. Toyota" id="validationModalMake" aria-describedby="validationModalMakeFeedback" required>
+                                <div id="validationModalMakeInvalidFeedback" class="invalid-feedback">
                                     You must provide the make of the car.
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
                                 </div>
                             </div>
                         </div>
@@ -67,9 +73,12 @@
                         <div class="col-auto col-sm-6 mb-2">
                             <label for="validationModalModel" class="form-label">Model of car</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control is-invalid" placeholder="e.g. Prius" id="validationModalModel" aria-describedby="validationModalModelFeedback" required>
-                                <div id="validationModalModelFeedback" class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="e.g. Prius" id="validationModalModel" aria-describedby="validationModalModelFeedback" required>
+                                <div id="validationModalModelInvalidFeedback" class="invalid-feedback">
                                     You must provide the model of the car.
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
                                 </div>
                             </div>
                         </div>
@@ -77,9 +86,12 @@
                         <div class="col-auto col-sm-6 mb-2">
                             <label for="validationModalYear" class="form-label">Year of manufacture</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control is-invalid" placeholder="e.g. 2017" id="validationModalYear" aria-describedby="validationModalYearFeedback" required>
-                                <div id="validationModalYearFeedback" class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="e.g. 2017" id="validationModalYear" aria-describedby="validationModalYearFeedback" required>
+                                <div id="validationModalYearInvalidFeedback" class="invalid-feedback">
                                     You must specify the year the car was manufactured.
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
                                 </div>
                             </div>
                         </div>
@@ -92,18 +104,24 @@
                         <div class="col-auto col-sm-6 mb-2">
                             <label for="validationModalMileage" class="form-label">Mileage</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control is-invalid" placeholder="e.g. 15000" id="validationModalMileage" aria-describedby="validationModalMileageFeedback" required>
-                                <div id="validationModalMileageFeedback" class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="e.g. 15000" id="validationModalMileage" aria-describedby="validationModalMileageFeedback" required>
+                                <div id="validationModalMileageInvalidFeedback" class="invalid-feedback">
                                     You must provide the car's mileage.
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto col-sm-6 mb-2">
                             <label for="validationModalColour" class="form-label">Colour</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control is-invalid" placeholder="e.g. White" id="validationModalColour" aria-describedby="validationModalColourFeedback" required>
-                                <div id="validationModalColourFeedback" class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="e.g. White" id="validationModalColour" aria-describedby="validationModalColourFeedback" required>
+                                <div id="validationModalColourInvalidFeedback" class="invalid-feedback">
                                     You must provide colour of the car.
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
                                 </div>
                             </div>
                         </div>
@@ -115,9 +133,12 @@
                     <div class="mb-1">
                         <label for="validationModalPrice" class="form-label">Price</label>
                         <div class="input-group has-validation">
-                            <input type="text" class="form-control is-invalid" placeholder="e.g. £35000" id="validationModalPrice" aria-describedby="validationModalPriceFeedback" required>
-                            <div id="validationModalPriceFeedback" class="invalid-feedback">
+                            <input type="text" class="form-control" placeholder="e.g. £35000" id="validationModalPrice" aria-describedby="validationModalPriceFeedback" required>
+                            <div id="validationModalPriceInvalidFeedback" class="invalid-feedback">
                                 You must provide your asking price for the car.
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
                             </div>
                         </div>
                     </div>
