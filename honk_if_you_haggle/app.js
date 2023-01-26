@@ -27,16 +27,18 @@ app.get('/cars', function (req, resp) {
     resp.send(JSON.stringify(filteredData));
 });
 
-// Returns data about all the cars
+// Returns the next available ID for a car being added to the DB
 app.get('/cars/nextID', function (req, resp) {
     let maxID = 0;
-    
+
     for (let i = 0; i < DbData.cars.length; i++) {
-        let currID = DbData.cars[i].id;
+        const currID = DbData.cars[i].id;
+
         if (currID > maxID) {
             maxID = currID;
         }
     }
+
     resp.send(JSON.stringify(maxID + 1));
 });
 
