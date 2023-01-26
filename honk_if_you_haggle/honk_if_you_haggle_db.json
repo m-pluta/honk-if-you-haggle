@@ -1,7 +1,6 @@
 {
-    "cars":[
-        {
-            "id": 1,
+    "cars":{
+        "1": {
             "make":"Toyota",
             "model":"Camry",
             "year":2020,
@@ -9,8 +8,7 @@
             "color":"white",
             "price":30000
         },
-        {
-            "id": 2,
+        "2": {
             "make":"Ford",
             "model":"Mustang",
             "year":2019,
@@ -18,8 +16,7 @@
             "color":"black",
             "price":35000
         },
-        {
-            "id": 3,
+        "3": {
             "make":"Honda",
             "model":"Civic",
             "year":2018,
@@ -27,8 +24,7 @@
             "color":"silver",
             "price":25000
         },
-        {
-            "id": 4,
+        "4": {
             "make":"BMW",
             "model":"3 Series",
             "year":2017,
@@ -36,8 +32,7 @@
             "color":"blue",
             "price":35000
         },
-        {
-            "id": 5,
+        "5": {
             "make":"Tesla",
             "model":"Model S",
             "year":2016,
@@ -45,8 +40,7 @@
             "color":"red",
             "price":100000
         },
-        {
-            "id": 6,
+        "6": {
             "make":"Mercedes",
             "model":"C-Class",
             "year":2015,
@@ -54,8 +48,7 @@
             "color":"white",
             "price":30000
         },
-        {
-            "id": 7,
+        "7": {
             "make":"Audi",
             "model":"A4",
             "year":2014,
@@ -63,8 +56,7 @@
             "color":"black",
             "price":25000
         },
-        {
-            "id": 8,
+        "8": {
             "make":"Volkswagen",
             "model":"Jetta",
             "year":2013,
@@ -72,8 +64,7 @@
             "color":"silver",
             "price":20000
         },
-        {
-            "id": 9,
+        "9": {
             "make":"Fiat",
             "model":"500",
             "year":2012,
@@ -81,8 +72,7 @@
             "color":"blue",
             "price":15000
         },
-        {
-            "id": 10,
+        "10": {
             "make":"Jeep",
             "model":"Wrangler",
             "year":2011,
@@ -90,8 +80,7 @@
             "color":"red",
             "price":20000
         },
-        {
-            "id": 11,
+        "11": {
             "make": "Toyota",
             "model": "Corolla",
             "year": 2020,
@@ -99,8 +88,7 @@
             "color": "white",
             "price": 30000
         },
-        {
-            "id": 12,
+        "12": {
             "make": "Honda",
             "model": "Accord",
             "year": 2018,
@@ -108,8 +96,7 @@
             "color": "silver",
             "price": 25000
         },
-        {
-            "id": 13,
+        "13": {
             "make": "BMW",
             "model": "5 Series",
             "year": 2017,
@@ -117,8 +104,7 @@
             "color": "blue",
             "price": 35000
         },
-        {
-            "id": 14,
+        "14": {
             "make": "Tesla",
             "model": "Model X",
             "year": 2016,
@@ -126,8 +112,7 @@
             "color": "red",
             "price": 100000
         },
-        {
-            "id": 15,
+        "15": {
             "make": "Mercedes",
             "model": "E-Class",
             "year": 2015,
@@ -135,8 +120,7 @@
             "color": "white",
             "price": 30000
         },
-        {
-            "id": 16,
+        "16": {
             "make": "Audi",
             "model": "A6",
             "year": 2014,
@@ -144,8 +128,7 @@
             "color": "black",
             "price": 25000
         },
-        {
-            "id": 17,
+        "17": {
             "make": "Volkswagen",
             "model": "Golf",
             "year": 2013,
@@ -153,8 +136,7 @@
             "color": "silver",
             "price": 20000
         },
-        {
-            "id": 18,
+        "18": {
             "make": "Fiat",
             "model": "124 Spider",
             "year": 2012,
@@ -162,8 +144,7 @@
             "color": "blue",
             "price": 15000
         },
-        {
-            "id": 19,
+        "19": {
             "make": "Jeep",
             "model": "Grand Cherokee",
             "year": 2011,
@@ -171,8 +152,7 @@
             "color": "red",
             "price": 20000
         },
-        {
-            "id": 20,
+        "20": {
             "make": "Toyota",
             "model": "RAV4",
             "year": 2020,
@@ -180,8 +160,7 @@
             "color": "white",
             "price": 30000
         },
-        {
-            "id": 21,
+        "21": {
             "make": "Ford",
             "model": "Explorer",
             "year": 2019,
@@ -189,8 +168,7 @@
             "color": "black",
             "price": 35000
         },
-        {
-            "id": 22,
+        "22":{
             "make": "Honda",
             "model": "CR-V",
             "year": 2018,
@@ -198,8 +176,7 @@
             "color": "silver",
             "price": 25000
         },
-        {
-            "id": 23,
+        "23": {
             "make": "BMW",
             "model": "7 Series",
             "year": 2017,
@@ -207,8 +184,7 @@
             "color": "blue",
             "price": 35000
         },
-        {
-            "id": 24,
+        "24": {
             "make": "Volkswagen",
             "model": "Passat",
             "year": 2013,
@@ -216,8 +192,7 @@
             "color": "silver",
             "price": 20000
         },
-        {
-            "id": 25,
+        "25": {
             "make": "Fiat",
             "model": "500L",
             "year": 2012,
@@ -225,8 +200,7 @@
             "color": "blue",
             "price": 15000
         },
-        { 
-            "id": 26,
+        "26": { 
             "make": "Toyota",
             "model": "Tacoma",
             "year": 2020,
@@ -234,8 +208,7 @@
             "color": "white",
             "price": 30000
         },
-        {
-            "id": 27,
+        "27": {
             "make": "Tesla",
             "model": "Model Y",
             "year": 2019,
@@ -243,8 +216,7 @@
             "color": "black",
             "price": 35000
         },
-        {
-            "id": 28,
+        "28": {
             "make": "Mercedes",
             "model": "GLE-Class",
             "year": 2018,
@@ -252,8 +224,7 @@
             "color": "silver",
             "price": 25000
         },
-        {
-            "id": 29,
+        "29": {
             "make": "BMW",
             "model": "X5",
             "year": 2017,
@@ -261,8 +232,7 @@
             "color": "blue",
             "price": 35000
         },
-        {
-            "id": 30,
+        "30": {
             "make": "Ford",
             "model": "Escape",
             "year": 2016,
@@ -270,8 +240,7 @@
             "color": "red",
             "price": 100000
         },
-        {
-            "id": 31,
+        "31": {
             "make": "Honda",
             "model": "Odyssey",
             "year": 2015,
@@ -279,8 +248,7 @@
             "color": "white",
             "price": 30000
         },
-        {
-            "id": 32,
+        "32": {
             "make": "Volkswagen",
             "model": "Tiguan",
             "year": 2013,
@@ -288,37 +256,19 @@
             "color": "silver",
             "price": 20000
         }
-    ],
-    "dealerships": [
-        {
-            "name": "Bob's Carsm",
-            "location": "Los Angeles, CA",
-            "inventory": [
-                "Toyota Camry 2022 white",
-                "Honda Civic 2021 black"
-            ]
+    },
+    "bids":{
+        "1": {
+            "carID": 1,
+            "user": "Anonymous",
+            "email": "test@gmail.com",
+            "bid": 24000
         },
-        {
-            "name": "Jane's Auto",
-            "location": "New York, NY",
-            "inventory": [
-                "Toyota Camry 2022 white"
-            ]
+        "2": {
+            "carID": 1,
+            "user": "Anonymous",
+            "email": "example@gmail.com",
+            "bid": 25000
         }
-        
-    ],
-    "reviews": [
-        {
-            "car_id": "Toyota Camry 2022 white",
-            "reviewer": "John Smith",
-            "rating": 4,
-            "review": "I really like this car, it's comfortable and reliable. The only thing I don't like is the color, I wish it came in red."
-        },
-        {
-            "car": "Honda Civic 2021 black",
-            "reviewer": "Jane Doe",
-            "rating": 5,
-            "review": "I love this car! It's great on gas and the black color looks sleek. Highly recommend."
-        }
-    ]
+    }
 }
