@@ -32,7 +32,6 @@ async function listCars () {
         copyHTML.querySelector('.card-car-title').textContent = carData.make + ' ' + carData.model;
         copyHTML.querySelector('.card-car-id').innerHTML = `<strong>ID: </strong> ${key}`;
         copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
-        console.log(carData.mileage);
         copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
         copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
         copyHTML.querySelector('.card-car').id = 'carID:' + key;
