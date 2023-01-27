@@ -165,7 +165,6 @@ async function attachSubmitButtonListener () {
 
         /* conversion from FormData to JSON at https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json */
         const dataJSON = JSON.stringify(Object.fromEntries(data));
-        console.log(dataJSON);
 
         // eslint-disable-next-line no-unused-vars
         const response = await fetch(endpointRoot + 'car/new',

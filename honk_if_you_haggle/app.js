@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const { uuid } = require('uuidv4');
 
 const fs = require('fs');
 
@@ -29,24 +30,12 @@ app.get('/cars', function (req, resp) {
     resp.send(JSON.stringify(filteredData));
 });
 
-// Returns the next available ID for a car being added to the DB
-app.get('/cars/nextID', function (req, resp) {
-    let maxID = 0;
-
-    for (const key in DbData.cars) {
-        const currID = parseInt(key);
-        if (currID > maxID) {
-            maxID = currID;
-        }
-    }
-
-    resp.send(JSON.stringify(maxID + 1));
-});
-
 app.post('/car/new', function (req, resp) {
-    const id = 33;
+    const id = uuid();
     const details = req.body;
+
     DbData.cars[id] = details;
+
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
     resp.send(DbData.cars);
 });
