@@ -21,13 +21,13 @@ app.get('/car/:id', function (req, resp) {
     const filteredData = DbData.cars[reqID];
 
     // Returns the car's data in JSON format
-    resp.send(JSON.stringify(filteredData));
+    resp.status(200).json(filteredData);
 });
 
 // Returns data about all the cars
 app.get('/cars', function (req, resp) {
     const filteredData = DbData.cars;
-    resp.send(JSON.stringify(filteredData));
+    resp.status(200).json(filteredData);
 });
 
 app.post('/car/new', function (req, resp) {
