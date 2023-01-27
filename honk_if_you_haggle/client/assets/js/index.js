@@ -10,6 +10,7 @@ function clearCardLayout() {
 // Makes a fetch request to server to get all car data
 // Loads data about each car into a template card
 // Appends each card into the card-layout
+// Code from: https://web.dev/fetch-api-error-handling/
 async function listCars() {
   let data;
 
