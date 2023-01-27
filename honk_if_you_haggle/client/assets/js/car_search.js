@@ -22,17 +22,20 @@ async function listCars () {
     const templateContent = document.getElementById('carCardTemplate').content;
 
     // Creates a card for each car in data
-    for (const carData of data) {
+    for (const key in data) {
+        const carData = data[key];
+
         // Copies the HTML from the template in index.html
         const copyHTML = document.importNode(templateContent, true);
 
         // Modifies each part in the template with the appropriate data
         copyHTML.querySelector('.card-car-title').textContent = carData.make + ' ' + carData.model;
-        copyHTML.querySelector('.card-car-id').innerHTML = `<strong>ID: </strong> ${carData.id}`;
+        copyHTML.querySelector('.card-car-id').innerHTML = `<strong>ID: </strong> ${key}`;
         copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
-        copyHTML.querySelector('.card-car-mileage').inner = `<strong>Mileage: </strong> ${carData.mileage}`;
+        console.log(carData.mileage);
+        copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
         copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
-        copyHTML.querySelector('.card-car').id = 'carID:' + carData.id;
+        copyHTML.querySelector('.card-car').id = 'carID:' + key;
 
         // Appends card to the card-layout
         carListElt.appendChild(copyHTML);
@@ -58,6 +61,8 @@ async function loadCar (id) {
     // Fetch data about specific car
     const response = await fetch(endpointRoot + 'car/' + id);
     const text = await response.text();
+
+    // eslint-disable-next-line no-unused-vars
     const data = JSON.parse(text);
 
     // Insert fetched data into DOM
@@ -66,21 +71,12 @@ async function loadCar (id) {
 function attachModalEventListeners () {
     attachValidationListeners();
     attachClearButtonListener();
+    attachSubmitButtonListener();
 }
 
 function attachValidationListeners () {
-    const regexLettersWhitespace = /^(?=\S)[A-Za-z\s]+$/;
-    const regexLettersWhitespaceNumbers = /^(?=\S)[A-Za-z0-9\s]+$/;
-    const regexNumbers = /^[0-9]+$/;
-    const regexPrice = /^£[0-9]+(,[0-9]{3})*$/;
-
+    // Event listener for changed value in the image selection
     const formImage = document.getElementById('validationModalImage');
-    const formMake = document.getElementById('validationModalMake');
-    const formModel = document.getElementById('validationModalModel');
-    const formYear = document.getElementById('validationModalYear');
-    const formMileage = document.getElementById('validationModalMileage');
-    const formColour = document.getElementById('validationModalColour');
-    const formPrice = document.getElementById('validationModalPrice');
 
     formImage.addEventListener('input', (event) => {
         const path = formImage.value;
@@ -94,6 +90,24 @@ function attachValidationListeners () {
             formImage.classList.add('is-invalid');
         }
     });
+
+    // Event listeners for all other input fields in the modal
+
+    // RegEx Literals
+    const regexLettersWhitespace = /^(?=\S)[A-Za-z\s]+$/;
+    const regexLettersWhitespaceNumbers = /^(?=\S)[A-Za-z0-9\s]+$/;
+    const regexNumbers = /^[0-9]+$/;
+    const regexPrice = /^£[0-9]+(,[0-9]{3})*$/;
+
+    // Getting each input element from the DOM
+    const formMake = document.getElementById('validationModalMake');
+    const formModel = document.getElementById('validationModalModel');
+    const formYear = document.getElementById('validationModalYear');
+    const formMileage = document.getElementById('validationModalMileage');
+    const formColour = document.getElementById('validationModalColour');
+    const formPrice = document.getElementById('validationModalPrice');
+
+    // Attach listener to each input element which changes validity depending on RegEx match
     formMake.addEventListener('input', (event) => {
         changeValidity(formMake, regexLettersWhitespace.test(formMake.value.trim()));
     });
@@ -138,6 +152,31 @@ function attachClearButtonListener () {
             element.classList.remove('is-valid');
             element.classList.remove('is-invalid');
         }
+    });
+}
+
+async function attachSubmitButtonListener () {
+    const newCarForm = document.getElementById('newCarForm');
+    const btnSubmit = document.getElementById('btnModalSubmit');
+
+    btnSubmit.addEventListener('click', async function (event) {
+        // eslint-disable-next-line no-undef
+        const data = new FormData(newCarForm);
+
+        /* conversion from FormData to JSON at https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json */
+        const dataJSON = JSON.stringify(Object.fromEntries(data));
+        console.log(dataJSON);
+
+        // eslint-disable-next-line no-unused-vars
+        const response = await fetch(endpointRoot + 'car/new',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: dataJSON
+        });
+        listCars();
     });
 }
 
