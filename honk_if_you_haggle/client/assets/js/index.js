@@ -84,6 +84,10 @@ async function loadCar(id) {
     // Insert fetched data into DOM
 }
 
+// All the input DOM element in the modal begin with validationModal
+// These are the suffixes that go after this prefix
+const modalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+
 function attachModalEventListeners() {
     attachValidationListeners();
     attachClearButtonListener();
@@ -91,13 +95,9 @@ function attachModalEventListeners() {
 }
 
 function attachValidationListeners() {
-    // All the input DOM element in the modal begin with validationModal
-    // These are the suffixes that go after this prefix
-    const elementSuffixes = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
-
-    for (let i = 0; i < elementSuffixes.length; i++) {
+    for (let i = 0; i < modalInputElmtNames.length; i++) {
         // Get the specific DOM input element
-        const elementString = 'validationModal' + elementSuffixes[i];
+        const elementString = 'validationModal' + modalInputElmtNames[i];
         const element = document.getElementById(elementString);
 
         element.addEventListener('input', (event) => {
@@ -150,13 +150,9 @@ function attachClearButtonListener() {
     const btnClear = document.getElementById('btnModalClear');
 
     btnClear.addEventListener('click', (event) => {
-        // All the input DOM element in the modal begin with validationModal
-        // These are the suffixes that go after this prefix
-        const elementSuffixes = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
-
-        for (let i = 0; i < elementSuffixes.length; i++) {
+        for (let i = 0; i < modalInputElmtNames.length; i++) {
             // Get the specific DOM input element
-            const elementString = 'validationModal' + elementSuffixes[i];
+            const elementString = 'validationModal' + modalInputElmtNames[i];
             const element = document.getElementById(elementString);
 
             // Clear value and reset validity feedback
