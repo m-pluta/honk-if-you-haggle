@@ -79,7 +79,7 @@ async function loadCar(id) {
   websiteBody.classList.add('visually-hidden');
 
   // Fetch data about specific car
-  const response = await fetch(endpointRoot + 'car/' + id);
+  const response = await fetch(endpointRoot + 'cars/' + id);
   const text = await response.text();
 
   // eslint-disable-next-line no-unused-vars
@@ -204,7 +204,7 @@ async function attachSubmitButtonListener() {
     const dataJSON = JSON.stringify(Object.fromEntries(data));
 
     // eslint-disable-next-line no-unused-vars
-    const response = await fetch(endpointRoot + 'car/new', {
+    const response = await fetch(endpointRoot + 'cars/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

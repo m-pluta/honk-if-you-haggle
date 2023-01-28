@@ -14,7 +14,7 @@ const fileNameForJSON = '.' + path.sep + 'honk_if_you_haggle_db.json';
 const DbData = require(fileNameForJSON);
 
 // Returns data about a specific car with a specific id
-app.get('/car/:id', function (req, resp) {
+app.get('/cars/:id', function (req, resp) {
     const reqID = req.params.id; // ID of the car
 
     // Finds the car with the given id
@@ -30,7 +30,7 @@ app.get('/cars', function (req, resp) {
     resp.status(200).json(filteredData);
 });
 
-app.post('/car/new', function (req, resp) {
+app.post('/cars', function (req, resp) {
     const id = uuid();
     const details = req.body;
 
