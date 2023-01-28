@@ -255,22 +255,6 @@
       "mileage": 50000,
       "color": "silver",
       "price": 20000
-    },
-    "77db0c90-fe2c-4124-8032-73f9d7fb559b": {
-      "make": "Bentley",
-      "model": "Continental GT",
-      "year": 2023,
-      "mileage": 0,
-      "color": "silver",
-      "price": 200000
-    },
-    "327ef02e-1448-477f-a01c-a4664e082a5f": {
-      "make": "Bentley",
-      "model": "Continental GT",
-      "year": 2023,
-      "mileage": 0,
-      "color": "silver",
-      "price": 200000
     }
   },
   "bids": {

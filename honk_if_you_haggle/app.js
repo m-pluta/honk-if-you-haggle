@@ -1,12 +1,18 @@
+// Express Back-end
 const express = require('express');
 const app = express();
+
+// UUID
 const { uuid } = require('uuidv4');
 
+// Node.js file system & path module for working with files and directory paths
 const fs = require('fs');
-
 const path = require('path');
+
+// Middleware function used to server the contents of the client directory
 app.use(express.static(path.join(__dirname, 'client')));
 
+// JSON parsing middleware
 app.use(express.json());
 
 // Import data from honk_if_you_haggle database
@@ -33,6 +39,9 @@ app.get('/cars', function (req, resp) {
 app.post('/cars', function (req, resp) {
     const id = uuid();
     const details = req.body;
+
+    const currentDate = new Date();
+    details.creation_date = currentDate.getTime();
 
     DbData.cars[id] = details;
 

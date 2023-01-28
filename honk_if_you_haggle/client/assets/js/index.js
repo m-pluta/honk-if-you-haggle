@@ -14,6 +14,7 @@ function clearCardLayout() {
 async function listCars() {
   let data;
 
+  // Making the GET request and error handling
   try {
     const response = await fetch(endpointRoot + 'cars/');
     data = await response.json();
