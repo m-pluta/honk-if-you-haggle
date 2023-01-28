@@ -123,10 +123,10 @@ function checkInputElementValidity(inputElmt) {
             break;
         case 'validationModalYear':
         case 'validationModalMileage':
-            regex = /^\d+$/;
+            regex = /^\d+(,\d{3})*$/;
             break;
         case 'validationModalPrice':
-            regex = /^£?\d+(,\d{3})*(\.\d{1,2})?$/;
+            regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
             break;
         default:
             console.log('Unimplemented id: ', inputElmt.id);

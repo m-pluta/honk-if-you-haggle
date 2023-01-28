@@ -42,9 +42,9 @@
                     <!-- Image selection input -->
                     <form id="newCarForm">
                         <div>
-                            <label for="validationModalImage" class="form-label">Link to image of car</label>
+                            <label for="validationModalImage" class="form-label required">Link to image of car</label>
                             <div class="input-group has-validation">
-                                <input name="image" type="text" class="form-control" placeholder="https://google.com/images/toyota_yaris.jpg" id="validationModalImage" aria-describedby="validationModalImageFeedback" required>
+                                <input name="image" type="text" class="form-control" placeholder="https://google.com/images/toyota_yaris.jpg" id="validationModalImage" aria-describedby="validationModalImageFeedback">
                                 <div id="validationModalImageInvalidFeedback" class="invalid-feedback">
                                     The link must point to a .png, .jpg, .jpeg, or .webp file
                                 </div>
@@ -59,9 +59,9 @@
                         <!-- Make, Model, Year input -->
                         <div class="row">
                             <div class="col-auto col-sm-6 mb-2">
-                                <label for="validationModalMake" class="form-label">Make of car</label>
+                                <label for="validationModalMake" class="form-label required">Make of car</label>
                                 <div class="input-group has-validation">
-                                    <input name="make" type="text" class="form-control" placeholder="e.g. Toyota" id="validationModalMake" aria-describedby="validationModalMakeFeedback" required>
+                                    <input name="make" type="text" class="form-control" placeholder="e.g. Toyota" id="validationModalMake" aria-describedby="validationModalMakeFeedback">
                                     <div id="validationModalMakeInvalidFeedback" class="invalid-feedback">
                                         The make of the car must consist of only letters
                                     </div>
@@ -72,9 +72,9 @@
                             </div>
 
                             <div class="col-auto col-sm-6 mb-2">
-                                <label for="validationModalModel" class="form-label">Model of car</label>
+                                <label for="validationModalModel" class="form-label required">Model of car</label>
                                 <div class="input-group has-validation">
-                                    <input name="model" type="text" class="form-control" placeholder="e.g. Prius" id="validationModalModel" aria-describedby="validationModalModelFeedback" required>
+                                    <input name="model" type="text" class="form-control" placeholder="e.g. Prius" id="validationModalModel" aria-describedby="validationModalModelFeedback">
                                     <div id="validationModalModelInvalidFeedback" class="invalid-feedback">
                                         The make of the car must consist of only letters and numbers
                                     </div>
@@ -85,9 +85,9 @@
                             </div>
 
                             <div class="col-auto col-sm-6 mb-2">
-                                <label for="validationModalYear" class="form-label">Year of manufacture</label>
+                                <label for="validationModalYear" class="form-label required">Year of manufacture</label>
                                 <div class="input-group has-validation">
-                                    <input name="year" type="text" class="form-control" placeholder="e.g. 2017" id="validationModalYear" aria-describedby="validationModalYearFeedback" required>
+                                    <input name="year" type="text" class="form-control" placeholder="e.g. 2017" id="validationModalYear" aria-describedby="validationModalYearFeedback">
                                     <div id="validationModalYearInvalidFeedback" class="invalid-feedback">
                                         The year of manufacture must contain only numbers
                                     </div>
@@ -100,12 +100,12 @@
 
                         <hr class="solid my-3 mx-2">
 
-                        <!-- Mileage & colour input -->
+                        <!-- Mileage & Colour input -->
                         <div class="row">
                             <div class="col-auto col-sm-6 mb-2">
-                                <label for="validationModalMileage" class="form-label">Mileage (miles)</label>
+                                <label for="validationModalMileage" class="form-label required">Mileage (miles)</label>
                                 <div class="input-group has-validation">
-                                    <input name="mileage" type="text" class="form-control" placeholder="e.g. 15000" id="validationModalMileage" aria-describedby="validationModalMileageFeedback" required>
+                                    <input name="mileage" type="text" class="form-control" placeholder="e.g. 15,000" id="validationModalMileage" aria-describedby="validationModalMileageFeedback">
                                     <div id="validationModalMileageInvalidFeedback" class="invalid-feedback">
                                         The car's mileage must contain only numbers
                                     </div>
@@ -115,9 +115,9 @@
                                 </div>
                             </div>
                             <div class="col-auto col-sm-6 mb-2">
-                                <label for="validationModalColour" class="form-label">Colour</label>
+                                <label for="validationModalColour" class="form-label required">Colour</label>
                                 <div class="input-group has-validation">
-                                    <input name="colour" type="text" class="form-control" placeholder="e.g. White" id="validationModalColour" aria-describedby="validationModalColourFeedback" required>
+                                    <input name="colour" type="text" class="form-control" placeholder="e.g. White" id="validationModalColour" aria-describedby="validationModalColourFeedback">
                                     <div id="validationModalColourInvalidFeedback" class="invalid-feedback">
                                         The colour of the car must consist of only letters
                                     </div>
@@ -132,11 +132,14 @@
 
                         <!-- Price input -->
                         <div class="mb-1">
-                            <label for="validationModalPrice" class="form-label">Price</label>
+                            <label for="validationModalPrice" class="form-label required">Price</label>
                             <div class="input-group has-validation">
-                                <input name="price" type="text" class="form-control" placeholder="e.g. £35000" id="validationModalPrice" aria-describedby="validationModalPriceFeedback" required>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">£</div>
+                                </div>
+                                <input name="price" type="text" class="form-control" placeholder="e.g. 35,000" id="validationModalPrice" aria-describedby="validationModalPriceFeedback">
                                 <div id="validationModalPriceInvalidFeedback" class="invalid-feedback">
-                                    The price of car must be a valid number in decimal format. £ is optional
+                                    The price of car must be a valid number in decimal format. Do not include currency symbols
                                 </div>
                                 <div class="valid-feedback">
                                     Looks good!
