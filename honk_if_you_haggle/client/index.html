@@ -42,11 +42,11 @@
                     <!-- Image selection input -->
                     <form id="newCarForm">
                         <div>
-                            <label for="validationModalImage" class="form-label">Image of car</label>
+                            <label for="validationModalImage" class="form-label">Link to image of car</label>
                             <div class="input-group has-validation">
-                                <input type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" id="validationModalImage" aria-describedby="validationModalImageFeedback" required>
+                                <input name="image" type="text" class="form-control" placeholder="https://google.com/images/toyota_yaris.jpg" id="validationModalImage" aria-describedby="validationModalImageFeedback" required>
                                 <div id="validationModalImageInvalidFeedback" class="invalid-feedback">
-                                    You must provide an image of the car.
+                                    You must provide an link to an image of the car
                                 </div>
                                 <div class="valid-feedback">
                                     Looks good!

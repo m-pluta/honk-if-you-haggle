@@ -93,30 +93,15 @@ function attachModalEventListeners() {
 }
 
 function attachValidationListeners() {
-    // Get DOM element for image selection
-    const formImage = document.getElementById('validationModalImage');
-
-    // Attach on-click listener
-    formImage.addEventListener('input', (event) => {
-        const path = formImage.value;
-        const arr = path.split('.');
-        const regex = /^jpg|jpeg|png|webp$/;
-        if (regex.test(arr[arr.length - 1])) {
-            formImage.classList.remove('is-invalid');
-            formImage.classList.add('is-valid');
-        } else {
-            formImage.classList.remove('is-valid');
-            formImage.classList.add('is-invalid');
-        }
-    });
-
     // Define RegEx Literals
+    const regexImageLink = /^.+\.(png|jpg|jpeg|webp)$/;
     const regexLettersWhitespace = /^(?=\S)[A-Za-z\s]+$/;
     const regexLettersWhitespaceNumbers = /^(?=\S)[A-Za-z0-9\s]+$/;
     const regexNumbers = /^[0-9]+$/;
     const regexPrice = /^£[0-9]+(,[0-9]{3})*$/;
 
     // Get each input element from the DOM
+    const formImage = document.getElementById('validationModalImage');
     const formMake = document.getElementById('validationModalMake');
     const formModel = document.getElementById('validationModalModel');
     const formYear = document.getElementById('validationModalYear');
@@ -125,6 +110,9 @@ function attachValidationListeners() {
     const formPrice = document.getElementById('validationModalPrice');
 
     // Attach listener to each input element which changes validity depending on RegEx match
+    formImage.addEventListener('input', (event) => {
+        changeValidity(formImage, regexImageLink.test(formImage.value.trim()));
+    });
     formMake.addEventListener('input', (event) => {
         changeValidity(formMake, regexLettersWhitespace.test(formMake.value.trim()));
     });
