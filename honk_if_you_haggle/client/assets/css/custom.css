@@ -18,7 +18,6 @@
 }
 
 .card-img-rounded {
-    width:auto;
     border-radius: 12px;
     object-fit: contain; /* keep aspect ratio */
     max-height: 30rem;
@@ -53,4 +52,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.one-car-view-img-rounded {
+    border-radius: 15px;
+    object-fit: contain; /* keep aspect ratio */
+    max-height: 40rem;
+}
+
+.one-car-view-rounded {
+    border-radius: 10px;
 }
