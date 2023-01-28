@@ -42,4 +42,15 @@
 .required:after {
     content:" *";
     color: red;
-  }
+}
+
+.nav-link:hover {
+    color: white;
+    transition: all 0.25s ease-in-out;;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
