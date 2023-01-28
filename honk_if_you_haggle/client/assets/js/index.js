@@ -145,6 +145,21 @@ function checkInputElementValidity(inputElmt) {
     return valid;
 }
 
+function allInputElmtsValid() {
+    let counter = 0;
+    for (let i = 0; i < modalInputElmtNames.length; i++) {
+        // Get the specific DOM input element
+        const elementString = 'validationModal' + modalInputElmtNames[i];
+        const element = document.getElementById(elementString);
+
+        if (checkInputElementValidity(element)) {
+            counter++;
+        }
+    }
+
+    return counter === modalInputElmtNames.length;
+}
+
 // Attaches on-click listener to the clear button in the modal
 function attachClearButtonListener() {
     const btnClear = document.getElementById('btnModalClear');
@@ -168,22 +183,32 @@ async function attachSubmitButtonListener() {
     const btnSubmit = document.getElementById('btnModalSubmit');
 
     btnSubmit.addEventListener('click', async function (event) {
-        // eslint-disable-next-line no-undef
-        const data = new FormData(newCarForm);
+        if (allInputElmtsValid()) {
+            // eslint-disable-next-line no-undef
+            const data = new FormData(newCarForm);
 
-        // Convert from FormData to JSON
-        // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
-        const dataJSON = JSON.stringify(Object.fromEntries(data));
+            // Convert from FormData to JSON
+            // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
+            let dataJSON = JSON.stringify(Object.fromEntries(data));
+            console.log(dataJSON);
 
-        // eslint-disable-next-line no-unused-vars
-        const response = await fetch(endpointRoot + 'cars/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: dataJSON
-        });
-        loadCars();
+            // Remove all unnecessary whitespace
+            // https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
+            dataJSON = dataJSON.replace(/ +/g, '');
+            console.log(dataJSON);
+
+            // eslint-disable-next-line no-unused-vars
+            const response = await fetch(endpointRoot + 'cars/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: dataJSON
+            });
+            loadCars();
+        } else {
+            console.log('Some inputs are invalid');
+        }
     });
 }
 
