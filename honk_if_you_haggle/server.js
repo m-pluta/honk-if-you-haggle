@@ -8,4 +8,4 @@ const port = 8080;
 // Open connection on specific port
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
-  });
+});

@@ -1,8 +1,8 @@
-// Express Back-end
+// Express Back-end module
 const express = require('express');
 const app = express();
 
-// UUID
+// UUID module
 const { uuid } = require('uuidv4');
 
 // Node.js file system & path module for working with files and directory paths
@@ -21,12 +21,12 @@ const DbData = require(fileNameForJSON);
 
 // Returns data about a specific car with a specific id
 app.get('/cars/:id', function (req, resp) {
-    const reqID = req.params.id; // ID of the car
+    const reqID = req.params.id;
 
-    // Finds the car with the given id
+    // Find the car with the given id
     const filteredData = DbData.cars[reqID];
 
-    // Returns the car's data in JSON format
+    // Return the car's data in JSON format
     resp.status(200).json(filteredData);
 });
 
@@ -36,16 +36,22 @@ app.get('/cars', function (req, resp) {
     resp.status(200).json(filteredData);
 });
 
+// Adds a new car to the database based on user input
 app.post('/cars', function (req, resp) {
+    // Generate new UUID
     const id = uuid();
-    const details = req.body;
 
+    // Add timestamp for creation_date to the car
+    const details = req.body;
     const currentDate = new Date();
     details.creation_date = currentDate.getTime();
 
+    // Add data about car to the JSON object storing the DB
     DbData.cars[id] = details;
 
+    // Write the DB to the file to update it
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+
     resp.send(DbData.cars);
 });
 
