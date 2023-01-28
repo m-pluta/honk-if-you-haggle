@@ -31,8 +31,6 @@ async function loadCars() {
 
     // Handle the case where data was fetched successfully
     if (data) {
-        console.log('Use the JSON here!');
-
         clearCardLayout();
 
         const carListElt = document.getElementById('carList');
@@ -93,55 +91,58 @@ function attachModalEventListeners() {
 }
 
 function attachValidationListeners() {
-    // Define RegEx Literals
-    const regexImageLink = /^.+\.(png|jpg|jpeg|webp)$/;
-    const regexLettersWhitespace = /^(?=\S)[A-Za-z\s]+$/;
-    const regexLettersWhitespaceNumbers = /^(?=\S)[A-Za-z0-9\s]+$/;
-    const regexNumbers = /^[0-9]+$/;
-    const regexPrice = /^£[0-9]+(,[0-9]{3})*$/;
+    // All the input DOM element in the modal begin with validationModal
+    // These are the suffixes that go after this prefix
+    const elementSuffixes = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
 
-    // Get each input element from the DOM
-    const formImage = document.getElementById('validationModalImage');
-    const formMake = document.getElementById('validationModalMake');
-    const formModel = document.getElementById('validationModalModel');
-    const formYear = document.getElementById('validationModalYear');
-    const formMileage = document.getElementById('validationModalMileage');
-    const formColour = document.getElementById('validationModalColour');
-    const formPrice = document.getElementById('validationModalPrice');
+    for (let i = 0; i < elementSuffixes.length; i++) {
+        // Get the specific DOM input element
+        const elementString = 'validationModal' + elementSuffixes[i];
+        const element = document.getElementById(elementString);
 
-    // Attach listener to each input element which changes validity depending on RegEx match
-    formImage.addEventListener('input', (event) => {
-        changeValidity(formImage, regexImageLink.test(formImage.value.trim()));
-    });
-    formMake.addEventListener('input', (event) => {
-        changeValidity(formMake, regexLettersWhitespace.test(formMake.value.trim()));
-    });
-    formModel.addEventListener('input', (event) => {
-        changeValidity(formModel, regexLettersWhitespaceNumbers.test(formModel.value.trim()));
-    });
-    formYear.addEventListener('input', (event) => {
-        changeValidity(formYear, regexNumbers.test(formYear.value.trim()));
-    });
-    formMileage.addEventListener('input', (event) => {
-        changeValidity(formMileage, regexNumbers.test(formMileage.value.trim()));
-    });
-    formColour.addEventListener('input', (event) => {
-        changeValidity(formColour, regexLettersWhitespace.test(formColour.value.trim()));
-    });
-    formPrice.addEventListener('input', (event) => {
-        changeValidity(formPrice, regexPrice.test(formPrice.value.trim()));
-    });
+        element.addEventListener('input', (event) => {
+            checkInputElementValidity(element);
+        });
+    }
 }
 
-// Changes the validity of a given input DOM element based on the value of valid
-function changeValidity(form, valid) {
-    if (valid) {
-        form.classList.remove('is-invalid');
-        form.classList.add('is-valid');
-    } else {
-        form.classList.remove('is-valid');
-        form.classList.add('is-invalid');
+// Changes the validity of a given input DOM element depending on its current value
+function checkInputElementValidity(inputElmt) {
+    // Determine which RegEx literal should be used depending on the id of the inputElmt
+    let regex = '';
+    switch (inputElmt.id) {
+        case 'validationModalImage':
+            regex = /^.+\.(png|jpg|jpeg|webp)$/;
+            break;
+        case 'validationModalMake':
+        case 'validationModalColour':
+            regex = /^(?=\S)[A-Za-z\s]+$/;
+            break;
+        case 'validationModalModel':
+            regex = /^(?=\S)[A-Za-z\d\s]+$/;
+            break;
+        case 'validationModalYear':
+        case 'validationModalMileage':
+            regex = /^\d+$/;
+            break;
+        case 'validationModalPrice':
+            regex = /^£?\d+(,\d{3})*(\.\d{1,2})?$/;
+            break;
+        default:
+            console.log('Unimplemented id: ', inputElmt.id);
     }
+
+    const valid = regex.test(inputElmt.value.trim());
+
+    if (valid) {
+        inputElmt.classList.remove('is-invalid');
+        inputElmt.classList.add('is-valid');
+    } else {
+        inputElmt.classList.remove('is-valid');
+        inputElmt.classList.add('is-invalid');
+    }
+
+    return valid;
 }
 
 // Attaches on-click listener to the clear button in the modal
