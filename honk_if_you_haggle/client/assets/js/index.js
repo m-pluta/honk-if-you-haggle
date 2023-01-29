@@ -1,5 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const endpointRoot = 'http://127.0.0.1:8080/';
+// let currentlyLoadedCar = '';
 
 // Clears all cards currently present in the card-layout
 function clearCardLayout() {
@@ -45,7 +46,7 @@ async function loadCars() {
             const copyHTML = document.importNode(templateContent, true);
 
             // Modify each part in the template with the appropriate data
-            copyHTML.querySelector('.card-car-title').textContent = carData.make + ' ' + carData.model;
+            copyHTML.querySelector('.card-car-title').textContent = capitalise(carData.make + ' ' + carData.model);
             copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
             copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
             copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
@@ -60,7 +61,6 @@ async function loadCars() {
         for (const listItem of listItems) {
             listItem.addEventListener('click', (event) => {
                 const id = listItem.id.split(':')[1];
-                console.log(id);
                 loadCar(id);
             });
         }
@@ -75,6 +75,8 @@ async function loadCar(id) {
     // Visually hide main website body
     websiteBody.classList.add('visually-hidden');
     oneCarViewBody.classList.remove('visually-hidden');
+
+    // currentlyLoadedCar = id;
 
     let data;
 
@@ -93,7 +95,7 @@ async function loadCar(id) {
 
     // Handle the case where data was fetched successfully
     if (data) {
-        // const oneCarViewImage = document.getElementById('oneCarViewImage');
+        const oneCarViewImage = document.getElementById('oneCarViewImage');
         const oneCarViewCarTitle = document.getElementById('oneCarViewCarTitle');
         const oneCarViewBuyPrice = document.getElementById('oneCarViewBuyPrice');
         // const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
@@ -103,8 +105,9 @@ async function loadCar(id) {
         const oneCarViewYear = document.getElementById('oneCarViewYear');
         const oneCarViewMileage = document.getElementById('oneCarViewMileage');
         const oneCarViewColour = document.getElementById('oneCarViewColour');
+        const oneCarViewDate = document.getElementById('oneCarViewDate');
 
-        // oneCarViewImage.src = data.image;
+        oneCarViewImage.src = data.image;
         oneCarViewCarTitle.innerText = capitalise(data.make + ' ' + data.model);
         oneCarViewBuyPrice.innerText = data.price;
 
@@ -113,6 +116,9 @@ async function loadCar(id) {
         oneCarViewYear.innerText = data.year;
         oneCarViewMileage.innerText = data.mileage;
         oneCarViewColour.innerText = capitalise(data.color);
+
+        const creationDate = new Date(data.creation_date);
+        oneCarViewDate.innerText = creationDate.toLocaleDateString('en-UK') + ' ' + creationDate.toLocaleTimeString('en-UK');
     }
 }
 
@@ -259,6 +265,7 @@ async function attachSubmitButtonListener() {
                 },
                 body: dataJSON
             });
+
             loadCars();
         } else {
             console.log('Some inputs are invalid');
