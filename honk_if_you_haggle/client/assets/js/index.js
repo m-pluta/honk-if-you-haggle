@@ -70,18 +70,58 @@ async function loadCars() {
 // Loads different page which shows details about the spcific car clicked
 async function loadCar(id) {
     const websiteBody = document.getElementById('mainWebsiteBody');
+    const oneCarViewBody = document.getElementById('oneCarViewBody');
 
     // Visually hide main website body
     websiteBody.classList.add('visually-hidden');
+    oneCarViewBody.classList.remove('visually-hidden');
 
-    // Fetch data about specific car
-    const response = await fetch(endpointRoot + 'cars/' + id);
-    const text = await response.text();
+    let data;
 
-    // eslint-disable-next-line no-unused-vars
-    const data = JSON.parse(text);
+    // Make the GET request and handle errors
+    try {
+        const response = await fetch(endpointRoot + 'cars/' + id);
+        data = await response.json();
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            // Unexpected token < in JSON
+            console.log('There was a SyntaxError', error);
+        } else {
+            console.log('There was an error', error);
+        }
+    }
 
-    // Insert fetched data into DOM
+    // Handle the case where data was fetched successfully
+    if (data) {
+        // const oneCarViewImage = document.getElementById('oneCarViewImage');
+        const oneCarViewCarTitle = document.getElementById('oneCarViewCarTitle');
+        const oneCarViewBuyPrice = document.getElementById('oneCarViewBuyPrice');
+        const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
+        const lblNumberOfBids = document.getElementById('lblNumberOfBids');
+        const oneCarViewMake = document.getElementById('oneCarViewMake');
+        const oneCarViewModel = document.getElementById('oneCarViewModel');
+        const oneCarViewYear = document.getElementById('oneCarViewYear');
+        const oneCarViewMileage = document.getElementById('oneCarViewMileage');
+        const oneCarViewColour = document.getElementById('oneCarViewColour');
+
+        // oneCarViewImage.src = data.image;
+        oneCarViewCarTitle.innerText = capitalise(data.make + ' ' + data.model);
+        oneCarViewBuyPrice.innerText = data.price;
+
+        oneCarViewMake.innerText = capitalise(data.make);
+        oneCarViewModel.innerText = capitalise(data.model);
+        oneCarViewYear.innerText = data.year;
+        oneCarViewMileage.innerText = data.mileage;
+        oneCarViewColour.innerText = capitalise(data.color);
+    }
+}
+
+function capitalise(str) {
+    const arr = str.split(' ');
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+    return arr.join(' ');
 }
 
 // All the input DOM element in the modal begin with validationModal
