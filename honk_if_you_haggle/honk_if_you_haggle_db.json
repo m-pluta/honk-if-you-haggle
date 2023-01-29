@@ -1,274 +1,160 @@
 {
-  "cars": {
-    "73dc6baa-1699-4b12-b3df-febb78a20cd2": {
-      "make": "Toyota",
-      "model": "Camry",
-      "year": 2020,
-      "mileage": 15000,
-      "color": "white",
-      "price": 30000
+    "cars": {
+        "73dc6baa-1699-4b12-b3df-febb78a20cd2": {
+            "image": "https://www.cnet.com/a/img/resize/4476006d1312ec379ee616af256b7596321b3742/hub/2021/08/20/257caf0a-f3a2-45db-9c70-d6ed50a85e6f/2021-toyota-camry-trd-ogi-1.jpg?auto=webp&fit=crop&height=900&width=1200",
+            "make": "Toyota",
+            "model": "Camry",
+            "year": 2020,
+            "mileage": 15000,
+            "color": "silver",
+            "price": 30000,
+            "creation_date":1675016896584
+        },
+        "347039bf-434a-4277-8c02-dab69e3e9528": {
+            "image": "https://bestride.com/wp-content/uploads/2015/07/FullSizeRender.jpg",
+            "make": "Ford",
+            "model": "Mustang",
+            "year": 2019,
+            "mileage": 20000,
+            "color": "black",
+            "price": 35000,
+            "creation_date":1675018934026
+        },
+        "70fdb284-4e73-4e08-ba84-479731488cd7": {
+            "image": "https://pbs.twimg.com/media/DXOqUyeW0AABcgb.jpg",
+            "make": "Honda",
+            "model": "Civic",
+            "year": 2015,
+            "mileage": 25000,
+            "color": "red",
+            "price": 25000,
+            "creation_date":1675014384563
+        },
+        "5f460324-1ee5-4a61-b01a-7e3ad2176916": {
+            "image": "https://static.carthrottle.com/workspace/uploads/posts/2017/03/1351b3ac8c2323e27d369b3288224be8.jpg",
+            "make": "BMW",
+            "model": "3 series",
+            "year": 2017,
+            "mileage": 30000,
+            "color": "black",
+            "price": 35000,
+            "creation_date":1675018326594
+        },
+        "f30d3900-1245-4ef8-b77d-fbca549092dc": {
+            "image": "http://blog.widodh.nl/wp-content/uploads/2016/09/IMG_2045.jpg",
+            "make": "Tesla",
+            "model": "Model S",
+            "year": 2012,
+            "mileage": 35000,
+            "color": "white",
+            "price": 100000,
+            "creation_date":1675012983653
+        },
+        "24bd8e14-5d72-4f31-ba83-e42c78169915": {
+            "image": "https://i2-prod.mirror.co.uk/incoming/article1939956.ece/ALTERNATES/s615/Mercedes-C-Class-Coupe-Sport.jpg",
+            "make": "Mercedes",
+            "model": "C-Class",
+            "year": 2015,
+            "mileage": 40000,
+            "color": "white",
+            "price": 30000,
+            "creation_date":1675012093753
+        },
+        "15d50423-4c09-402e-acb4-d6a170d3ed18": {
+            "image": "https://preview.redd.it/7nb4n5nmc9i61.jpg?width=640&crop=smart&auto=webp&s=d82ff2a83c48400728c85ab89f5b9adbd56a2d36",
+            "make": "Volkswagen",
+            "model": "Jetta",
+            "year": 2013,
+            "mileage": 50000,
+            "color": "black",
+            "price": 20000,
+            "creation_date":1675012039573
+        },
+        "b8dc8d7a-6735-4fa0-bfce-dfd7011e5bb5": {
+            "image": "https://i.pinimg.com/originals/51/9a/63/519a635a9ffa7e42f70f033c17799dcd.jpg",
+            "make": "Fiat",
+            "model": "500",
+            "year": 2012,
+            "mileage": 55000,
+            "color": "red",
+            "price": 15000,
+            "creation_date":1675010293749
+        },
+        "006186b6-ceeb-4fe8-b963-e3f2875ae96c": {
+            "image": "https://pbs.twimg.com/media/DyMFrSAUUAEar1u.jpg",
+            "make": "Jeep",
+            "model": "Wrangler",
+            "year": 2011,
+            "mileage": 60000,
+            "color": "grey",
+            "price": 20000,
+            "creation_date":1675012085304
+        },
+        "399e344b-bf74-4470-9def-6484aaf6e055": {
+            "image": "https://imgcdnblog.carbay.com/wp-content/uploads/2018/07/05033209/Corolla-TOMS.jpg",
+            "make": "Toyota",
+            "model": "Corolla",
+            "year": 2020,
+            "mileage": 15000,
+            "color": "white",
+            "price": 30000,
+            "creation_date":1675013984733
+        },
+        "1ec27175-9f11-4e3e-8b2d-e296de7716ac": {
+            "image": "https://i.redd.it/3r2oh0v0qx521.jpg",
+            "make": "Honda",
+            "model": "Accord",
+            "year": 2018,
+            "mileage": 25000,
+            "color": "white",
+            "price": 25000,
+            "creation_date":1675019370234
+        },
+        "589cdccd-e046-4527-b218-5f4d84c31044": {
+            "image": "https://g30.bimmerpost.com/forums/attachment.php?attachmentid=2409721&stc=1&d=1599708267",
+            "make": "BMW",
+            "model": "5 Series",
+            "year": 2017,
+            "mileage": 30000,
+            "color": "grey",
+            "price": 35000,
+            "creation_date":1675013856749
+        },
+        "f96b9f48-fa70-4788-8aa1-9a5013c5d584": {
+            "image": "https://cdn.carbuzz.com/gallery-images/840x560/666000/0/666039.jpg",
+            "make": "Tesla",
+            "model": "Model X",
+            "year": 2016,
+            "mileage": 35000,
+            "color": "white",
+            "price": 100000,
+            "creation_date":1675011287544
+        },
+        "c9ef4213-f679-4ca3-b15f-27b7fd6e245c": {
+            "image": "https://i2-prod.derbytelegraph.co.uk/burton/article3072178.ece/ALTERNATES/s615/0_carjohn.jpg",
+            "make": "Volkswagen",
+            "model": "Golf",
+            "year": 2017,
+            "mileage": 50000,
+            "color": "white",
+            "price": 20000,
+            "creation_date":1675013207583
+        }
     },
-    "347039bf-434a-4277-8c02-dab69e3e9528": {
-      "make": "Ford",
-      "model": "Mustang",
-      "year": 2019,
-      "mileage": 20000,
-      "color": "black",
-      "price": 35000
-    },
-    "70fdb284-4e73-4e08-ba84-479731488cd7": {
-      "make": "Honda",
-      "model": "Civic",
-      "year": 2018,
-      "mileage": 25000,
-      "color": "silver",
-      "price": 25000
-    },
-    "5f460324-1ee5-4a61-b01a-7e3ad2176916": {
-      "make": "BMW",
-      "model": "3 Series",
-      "year": 2017,
-      "mileage": 30000,
-      "color": "blue",
-      "price": 35000
-    },
-    "f30d3900-1245-4ef8-b77d-fbca549092dc": {
-      "make": "Tesla",
-      "model": "Model S",
-      "year": 2016,
-      "mileage": 35000,
-      "color": "red",
-      "price": 100000
-    },
-    "24bd8e14-5d72-4f31-ba83-e42c78169915": {
-      "make": "Mercedes",
-      "model": "C-Class",
-      "year": 2015,
-      "mileage": 40000,
-      "color": "white",
-      "price": 30000
-    },
-    "14ade29a-9a18-4c0f-8bcf-074c26631c6b": {
-      "make": "Audi",
-      "model": "A4",
-      "year": 2014,
-      "mileage": 45000,
-      "color": "black",
-      "price": 25000
-    },
-    "15d50423-4c09-402e-acb4-d6a170d3ed18": {
-      "make": "Volkswagen",
-      "model": "Jetta",
-      "year": 2013,
-      "mileage": 50000,
-      "color": "silver",
-      "price": 20000
-    },
-    "b8dc8d7a-6735-4fa0-bfce-dfd7011e5bb5": {
-      "make": "Fiat",
-      "model": "500",
-      "year": 2012,
-      "mileage": 55000,
-      "color": "blue",
-      "price": 15000
-    },
-    "006186b6-ceeb-4fe8-b963-e3f2875ae96c": {
-      "make": "Jeep",
-      "model": "Wrangler",
-      "year": 2011,
-      "mileage": 60000,
-      "color": "red",
-      "price": 20000
-    },
-    "399e344b-bf74-4470-9def-6484aaf6e055": {
-      "make": "Toyota",
-      "model": "Corolla",
-      "year": 2020,
-      "mileage": 15000,
-      "color": "white",
-      "price": 30000
-    },
-    "1ec27175-9f11-4e3e-8b2d-e296de7716ac": {
-      "make": "Honda",
-      "model": "Accord",
-      "year": 2018,
-      "mileage": 25000,
-      "color": "silver",
-      "price": 25000
-    },
-    "589cdccd-e046-4527-b218-5f4d84c31044": {
-      "make": "BMW",
-      "model": "5 Series",
-      "year": 2017,
-      "mileage": 30000,
-      "color": "blue",
-      "price": 35000
-    },
-    "f96b9f48-fa70-4788-8aa1-9a5013c5d584": {
-      "make": "Tesla",
-      "model": "Model X",
-      "year": 2016,
-      "mileage": 35000,
-      "color": "red",
-      "price": 100000
-    },
-    "f2a81957-51fa-42f8-aff0-0d229f181958": {
-      "make": "Mercedes",
-      "model": "E-Class",
-      "year": 2015,
-      "mileage": 40000,
-      "color": "white",
-      "price": 30000
-    },
-    "d67de8f5-e627-4a69-a1bd-40cd78a8305d": {
-      "make": "Audi",
-      "model": "A6",
-      "year": 2014,
-      "mileage": 45000,
-      "color": "black",
-      "price": 25000
-    },
-    "c9ef4213-f679-4ca3-b15f-27b7fd6e245c": {
-      "make": "Volkswagen",
-      "model": "Golf",
-      "year": 2013,
-      "mileage": 50000,
-      "color": "silver",
-      "price": 20000
-    },
-    "04220bde-ec78-4e97-a571-9163f8c65960": {
-      "make": "Fiat",
-      "model": "124 Spider",
-      "year": 2012,
-      "mileage": 55000,
-      "color": "blue",
-      "price": 15000
-    },
-    "908f989a-db2c-41ff-848f-a61b284f2793": {
-      "make": "Jeep",
-      "model": "Grand Cherokee",
-      "year": 2011,
-      "mileage": 60000,
-      "color": "red",
-      "price": 20000
-    },
-    "da3b6c8e-803f-48dc-942a-d1bb843d1fcf": {
-      "make": "Toyota",
-      "model": "RAV4",
-      "year": 2020,
-      "mileage": 15000,
-      "color": "white",
-      "price": 30000
-    },
-    "9bdab4bc-3a66-4a9b-a708-11ed9dbb4c8d": {
-      "make": "Ford",
-      "model": "Explorer",
-      "year": 2019,
-      "mileage": 20000,
-      "color": "black",
-      "price": 35000
-    },
-    "e7801ac8-5ef4-4ebf-a250-2959c261dde4": {
-      "make": "Honda",
-      "model": "CR-V",
-      "year": 2018,
-      "mileage": 25000,
-      "color": "silver",
-      "price": 25000
-    },
-    "b937cb0e-78dc-4bc9-b3f1-72896c01aa22": {
-      "make": "BMW",
-      "model": "7 Series",
-      "year": 2017,
-      "mileage": 30000,
-      "color": "blue",
-      "price": 35000
-    },
-    "d9771db1-5625-4274-bd8d-a7eed505ffde": {
-      "make": "Volkswagen",
-      "model": "Passat",
-      "year": 2013,
-      "mileage": 50000,
-      "color": "silver",
-      "price": 20000
-    },
-    "775ba561-c148-4f77-b29c-465203a6a501": {
-      "make": "Fiat",
-      "model": "500L",
-      "year": 2012,
-      "mileage": 55000,
-      "color": "blue",
-      "price": 15000
-    },
-    "d8316928-a3a4-4f71-91ea-618667a43ddc": {
-      "make": "Toyota",
-      "model": "Tacoma",
-      "year": 2020,
-      "mileage": 15000,
-      "color": "white",
-      "price": 30000
-    },
-    "82885f1e-fbe1-4bd2-896b-eeb3b27690a1": {
-      "make": "Tesla",
-      "model": "Model Y",
-      "year": 2019,
-      "mileage": 20000,
-      "color": "black",
-      "price": 35000
-    },
-    "564e5bff-4c53-4d31-bd65-4fe43c151635": {
-      "make": "Mercedes",
-      "model": "GLE-Class",
-      "year": 2018,
-      "mileage": 25000,
-      "color": "silver",
-      "price": 25000
-    },
-    "df6715e5-9951-4fe5-9033-7b412c1e0866": {
-      "make": "BMW",
-      "model": "X5",
-      "year": 2017,
-      "mileage": 30000,
-      "color": "blue",
-      "price": 35000
-    },
-    "301e8035-23d8-45d2-8cab-eb2eb80137ac": {
-      "make": "Ford",
-      "model": "Escape",
-      "year": 2016,
-      "mileage": 35000,
-      "color": "red",
-      "price": 100000
-    },
-    "d2afd62f-af72-4b58-8ad9-d5a9e084dd35": {
-      "make": "Honda",
-      "model": "Odyssey",
-      "year": 2015,
-      "mileage": 40000,
-      "color": "white",
-      "price": 30000
-    },
-    "3517f51e-8b95-431f-aa42-a9b82bab5d9e": {
-      "make": "Volkswagen",
-      "model": "Tiguan",
-      "year": 2013,
-      "mileage": 50000,
-      "color": "silver",
-      "price": 20000
+    "bids": {
+        "3f62b799-fee7-4a0a-9257-0d3035b2fb65": {
+            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
+            "user": "Anonymous",
+            "email": "test@gmail.com",
+            "bid": 24000,
+            "timestamp":1675017194584
+        },
+        "2c0f6343-027c-4968-8a80-cfe7cc1b8dbe": {
+            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
+            "user": "Anonymous",
+            "email": "example@gmail.com",
+            "bid": 25000,
+            "timestamp":1675017319584
+        }
     }
-  },
-  "bids": {
-    "3f62b799-fee7-4a0a-9257-0d3035b2fb65": {
-      "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
-      "user": "Anonymous",
-      "email": "test@gmail.com",
-      "bid": 24000
-    },
-    "2c0f6343-027c-4968-8a80-cfe7cc1b8dbe": {
-      "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
-      "user": "Anonymous",
-      "email": "example@gmail.com",
-      "bid": 25000
-    }
-  }
 }
