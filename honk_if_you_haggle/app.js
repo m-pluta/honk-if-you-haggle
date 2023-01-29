@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // UUID module
-const { uuid } = require('uuidv4');
+const { v4: uuidv4 } = require('uuid');
 
 // Node.js file system & path module for working with files and directory paths
 const fs = require('fs');
@@ -39,7 +39,7 @@ app.get('/cars', function (req, resp) {
 // Adds a new car to the database based on user input
 app.post('/cars', function (req, resp) {
     // Generate new UUID
-    const id = uuid();
+    const id = uuidv4();
 
     // Add timestamp for creation_date to the car
     const details = req.body;
