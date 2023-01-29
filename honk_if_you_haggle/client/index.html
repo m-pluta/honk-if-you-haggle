@@ -225,6 +225,68 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="placeBidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Place a bid</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="placeBidForm">
+                        <!-- Username input -->
+                        <div>
+                            <label for="validationModalImage" class="form-label required">Username</label>
+                            <div class="input-group has-validation">
+                                <input
+                                    name="user"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Joe_Bloggs"
+                                    id="validationModalUsername"
+                                    aria-describedby="validationModalUsernameFeedback"
+                                />
+                                <div id="validationModalUsernameInvalidFeedback" class="invalid-feedback">
+                                    The username must consist of only letters
+                                </div>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                        </div>
+
+                        <hr class="solid my-3 mx-2" />
+
+                        <!-- Bid input -->
+                        <div class="mb-1">
+                            <label for="validationModalBid" class="form-label required">Bid amount</label>
+                            <div class="input-group has-validation">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">£</div>
+                                </div>
+                                <input
+                                    name="bid"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="e.g. 10,000"
+                                    id="validationModalBid"
+                                    aria-describedby="validationModalPriceFeedback"
+                                />
+                                <div id="validationModalBidInvalidFeedback" class="invalid-feedback">
+                                    The bid must be a valid number in decimal format. Do not include
+                                    currency symbols
+                                </div>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger">Place bid</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <div id="mainWebsiteBody" class="container px-3">
             <div id="carList" class="row g-3"></div>
         </div>
@@ -251,12 +313,12 @@
                                 <h3 id="oneCarViewBidPrice" class="mx-2 my-0" style="font-size: 1.75rem;">£28000</h3>
                             </div>
                             <div class="center">
-                                <button class="btn btn-danger btn-place-bid" type="button">
+                                <button id="btnPlaceBid" class="btn btn-danger btn-place-bid" data-bs-toggle="modal" data-bs-target="#placeBidModal" type="button">
                                     Place a bid
                                 </button>
                             </div>
                             <div class="center" style="font-size: 0.85rem;">
-                                <p class="m-0 mt-2 previous-bids-text">View previous bids (<span id="lblNumberOfBids">8</span>)</p>
+                                <p id="btnViewBids" class="m-0 mt-2 previous-bids-text">View previous bids (<span id="lblNumberOfBids">8</span>)</p>
                             </div>
                         </div>
                     </div>

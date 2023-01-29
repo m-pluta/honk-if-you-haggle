@@ -96,8 +96,8 @@ async function loadCar(id) {
         // const oneCarViewImage = document.getElementById('oneCarViewImage');
         const oneCarViewCarTitle = document.getElementById('oneCarViewCarTitle');
         const oneCarViewBuyPrice = document.getElementById('oneCarViewBuyPrice');
-        const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
-        const lblNumberOfBids = document.getElementById('lblNumberOfBids');
+        // const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
+        // const lblNumberOfBids = document.getElementById('lblNumberOfBids');
         const oneCarViewMake = document.getElementById('oneCarViewMake');
         const oneCarViewModel = document.getElementById('oneCarViewModel');
         const oneCarViewYear = document.getElementById('oneCarViewYear');
@@ -116,6 +116,7 @@ async function loadCar(id) {
     }
 }
 
+// Capitalises every word (sequential characters separated by whitespace) of a given input string
 function capitalise(str) {
     const arr = str.split(' ');
     for (let i = 0; i < arr.length; i++) {
@@ -127,6 +128,19 @@ function capitalise(str) {
 // All the input DOM element in the modal begin with validationModal
 // These are the suffixes that go after this prefix
 const modalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+
+function attachOneCarViewListeners() {
+    const btnPlaceBid = document.getElementById('btnPlaceBid');
+    const btnViewBids = document.getElementById('btnViewBids');
+
+    btnPlaceBid.addEventListener('click', (event) => {
+        // Open modal
+    });
+
+    btnViewBids.addEventListener('click', (event) => {
+        // Open modal
+    });
+}
 
 function attachModalEventListeners() {
     attachValidationListeners();
@@ -257,3 +271,6 @@ document.addEventListener('DOMContentLoaded', loadCars);
 
 // Purpose: Attach modal on-click event listeners
 document.addEventListener('DOMContentLoaded', attachModalEventListeners);
+
+// Purpose: Attach on-click listeners to OneCarView page
+document.addEventListener('DOMContentLoaded', attachOneCarViewListeners);
