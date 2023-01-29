@@ -35,7 +35,6 @@ async function loadCars() {
         clearCardLayout();
 
         const carListElt = document.getElementById('carList');
-
         const templateContent = document.getElementById('carCardTemplate').content;
 
         // Create a card for each car in data
@@ -46,11 +45,18 @@ async function loadCars() {
             const copyHTML = document.importNode(templateContent, true);
 
             // Modify each part in the template with the appropriate data
-            copyHTML.querySelector('.card-car-title').textContent = capitalise(carData.make + ' ' + carData.model);
+            const carName = capitalise(carData.make + ' ' + carData.model);
+
+            copyHTML.querySelector('.card-car-title').textContent = carName;
             copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
             copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
             copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
             copyHTML.querySelector('.card-car').id = 'carID:' + key;
+
+            copyHTML.querySelector('.spinner-border').classList.add('visually-hidden');
+            copyHTML.querySelector('.card-img-rounded').classList.remove('visually-hidden');
+            copyHTML.querySelector('.card-img-rounded').src = carData.image;
+            copyHTML.querySelector('.card-img-rounded').alt = 'Image of ' + carName;
 
             // Append card to the card-layout
             carListElt.appendChild(copyHTML);
