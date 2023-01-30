@@ -125,6 +125,43 @@ async function loadCar(id) {
 
         const creationDate = new Date(data.creation_date);
         oneCarViewDate.innerText = creationDate.toLocaleDateString('en-UK') + ' ' + creationDate.toLocaleTimeString('en-UK');
+
+        loadBidInfo(id);
+    }
+}
+
+async function loadBidInfo (id) {
+    let data1, data2;
+
+    // Make the GET request and handle errors
+    try {
+        const response1 = await fetch(endpointRoot + 'bids/' + id + '/max/');
+        data1 = await response1.json();
+        const response2 = await fetch(endpointRoot + 'bids/' + id + '/num/');
+        data2 = await response2.json();
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            // Unexpected token < in JSON
+            console.log('There was a SyntaxError', error);
+        } else {
+            showNetworkErrorModal();
+        }
+    }
+
+    if (data1) {
+        const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
+        console.log(data1);
+        if (Object.keys(data1).length !== 0) {
+            oneCarViewBidPrice.innerText = '£' + data1.bid;
+        } else {
+            oneCarViewBidPrice.innerText = 'No bids made yet';
+        }
+    }
+
+    if (data2) {
+        const lblNumberOfBids = document.getElementById('lblNumberOfBids');
+        console.log(data2);
+        lblNumberOfBids.innerText = data2.bids;
     }
 }
 

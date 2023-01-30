@@ -154,14 +154,14 @@
             "user": "Anonymous",
             "email": "example@gmail.com",
             "bid": 25000,
-            "timestamp":1675017319584
+            "timestamp":1675017319585
         },
         "2c0f6343-027c-4968-8a80-cfe7cc1e826e": {
             "carID": "347039bf-434a-4277-8c02-dab69e3e9528",
             "user": "Anonymous",
             "email": "example@gmail.com",
             "bid": 27000,
-            "timestamp":1675017319584
+            "timestamp":1675017319586
         }
     }
 }

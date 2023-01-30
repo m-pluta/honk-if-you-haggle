@@ -30,9 +30,14 @@ app.get('/cars/:id', function (req, resp) {
     resp.status(200).json(filteredData);
 });
 
-// Returns data about all the cars
+// Returns all the cars in order from newest to oldest
 app.get('/cars', function (req, resp) {
-    const filteredData = DbData.cars;
+    // Sorts based on the value of creation_date
+    const filteredData = Object.fromEntries(
+        Object.entries(DbData.cars)
+          .sort((a, b) => b[1].creation_date - a[1].creation_date)
+      );
+
     resp.status(200).json(filteredData);
 });
 
@@ -55,9 +60,13 @@ app.post('/cars', function (req, resp) {
     resp.send(DbData.cars);
 });
 
-// Returns all the bids ever made for any car
+// Returns all the bids ever made for any car, sorted newest to oldest
 app.get('/bids', function (req, resp) {
-    const filteredData = DbData.bids;
+    const filteredData = Object.fromEntries(
+        Object.entries(DbData.bids)
+          .sort((a, b) => b[1].timestamp - a[1].timestamp)
+      );
+
     resp.status(200).json(filteredData);
 });
 
@@ -65,51 +74,57 @@ app.get('/bids', function (req, resp) {
 app.get('/bids/:id', function (req, resp) {
     const reqID = req.params.id;
 
-    const filteredData = {};
+    let filteredData = {};
     for (const id in DbData.bids) {
         if (DbData.bids[id].carID === reqID) {
             filteredData[id] = DbData.bids[id];
         }
     }
 
+    filteredData = Object.fromEntries(
+        Object.entries(filteredData)
+          .sort((a, b) => b[1].timestamp - a[1].timestamp)
+      );
+
     resp.status(200).json(filteredData);
 });
 
 // Returns the maximum bid for a certain car
 app.get('/bids/:id/max', function (req, resp) {
-    const reqID = req.params.id;
-    let largestBid = 0;
-    let largestBidID = '';
+    const carID = req.params.id;
 
-    for (const id in DbData.bids) {
-        if (DbData.bids[id].bid > largestBid && DbData.bids[id].carID === reqID) {
-            largestBid = DbData.bids[id].bid;
-            largestBidID = id;
+    let maxBid = 0;
+    let maxBidID;
+
+    for (const bidID in DbData.bids) {
+        const bidObj = DbData.bids[bidID];
+        if (bidObj.bid > maxBid && bidObj.carID === carID) {
+            maxBid = bidObj.bid;
+            maxBidID = bidID;
         }
     }
 
-    let largestBidEntry;
-    if (largestBidID === '') {
-        largestBidEntry = {};
+    if (maxBidID) {
+        resp.status(200).json(DbData.bids[maxBidID]);
     } else {
-        largestBidEntry = DbData.bids[largestBidID];
+        resp.status(200).send({});
     }
-
-    resp.status(200).json(largestBidEntry);
 });
 
 // Returns the number of bids for a certain car
 app.get('/bids/:id/num', function (req, resp) {
-    const reqID = req.params.id;
+    const carID = req.params.id;
 
     let counter = 0;
-    for (const id in DbData.bids) {
-        if (DbData.bids[id].carID === reqID) {
+
+    for (const bidID in DbData.bids) {
+        const bidObj = DbData.bids[bidID];
+        if (bidObj.carID === carID) {
             counter++;
         }
     }
 
-    resp.status(200).json(counter);
+    resp.status(200).json({ bids: counter });
 });
 
 // Adds a new bid to the data for a certain car
