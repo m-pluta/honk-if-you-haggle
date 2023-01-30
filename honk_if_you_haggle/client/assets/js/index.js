@@ -70,6 +70,8 @@ async function loadCars() {
                 loadCar(id);
             });
         }
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }
 
@@ -122,6 +124,8 @@ async function loadCar(id) {
         oneCarViewDate.innerText = creationDate.toLocaleDateString('en-UK') + ' ' + creationDate.toLocaleTimeString('en-UK');
 
         loadBidInfo(id);
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }
 
@@ -252,8 +256,6 @@ function attachOneCarViewListeners() {
             myModal.click();
 
             loadBidInfo(currentlyLoadedCar);
-        } else {
-            console.log('Some inputs are invalid');
         }
     });
 
@@ -384,8 +386,6 @@ async function attachSubmitButtonListener() {
             myModal.click();
 
             loadCars();
-        } else {
-            console.log('Some inputs are invalid');
         }
     });
 }
