@@ -8,7 +8,7 @@
             "mileage": 15000,
             "color": "silver",
             "price": 30000,
-            "creation_date":1675016896584
+            "creation_date": 1675016896584
         },
         "347039bf-434a-4277-8c02-dab69e3e9528": {
             "image": "https://bestride.com/wp-content/uploads/2015/07/FullSizeRender.jpg",
@@ -18,7 +18,7 @@
             "mileage": 20000,
             "color": "black",
             "price": 35000,
-            "creation_date":1675018934026
+            "creation_date": 1675018934026
         },
         "70fdb284-4e73-4e08-ba84-479731488cd7": {
             "image": "https://pbs.twimg.com/media/DXOqUyeW0AABcgb.jpg",
@@ -28,7 +28,7 @@
             "mileage": 25000,
             "color": "red",
             "price": 25000,
-            "creation_date":1675014384563
+            "creation_date": 1675014384563
         },
         "5f460324-1ee5-4a61-b01a-7e3ad2176916": {
             "image": "https://static.carthrottle.com/workspace/uploads/posts/2017/03/1351b3ac8c2323e27d369b3288224be8.jpg",
@@ -38,7 +38,7 @@
             "mileage": 30000,
             "color": "black",
             "price": 35000,
-            "creation_date":1675018326594
+            "creation_date": 1675018326594
         },
         "f30d3900-1245-4ef8-b77d-fbca549092dc": {
             "image": "http://blog.widodh.nl/wp-content/uploads/2016/09/IMG_2045.jpg",
@@ -48,7 +48,7 @@
             "mileage": 35000,
             "color": "white",
             "price": 100000,
-            "creation_date":1675012983653
+            "creation_date": 1675012983653
         },
         "24bd8e14-5d72-4f31-ba83-e42c78169915": {
             "image": "https://i2-prod.mirror.co.uk/incoming/article1939956.ece/ALTERNATES/s615/Mercedes-C-Class-Coupe-Sport.jpg",
@@ -58,7 +58,7 @@
             "mileage": 40000,
             "color": "white",
             "price": 30000,
-            "creation_date":1675012093753
+            "creation_date": 1675012093753
         },
         "15d50423-4c09-402e-acb4-d6a170d3ed18": {
             "image": "https://preview.redd.it/7nb4n5nmc9i61.jpg?width=640&crop=smart&auto=webp&s=d82ff2a83c48400728c85ab89f5b9adbd56a2d36",
@@ -68,7 +68,7 @@
             "mileage": 50000,
             "color": "black",
             "price": 20000,
-            "creation_date":1675012039573
+            "creation_date": 1675012039573
         },
         "b8dc8d7a-6735-4fa0-bfce-dfd7011e5bb5": {
             "image": "https://i.pinimg.com/originals/51/9a/63/519a635a9ffa7e42f70f033c17799dcd.jpg",
@@ -78,7 +78,7 @@
             "mileage": 55000,
             "color": "red",
             "price": 15000,
-            "creation_date":1675010293749
+            "creation_date": 1675010293749
         },
         "006186b6-ceeb-4fe8-b963-e3f2875ae96c": {
             "image": "https://pbs.twimg.com/media/DyMFrSAUUAEar1u.jpg",
@@ -88,7 +88,7 @@
             "mileage": 60000,
             "color": "grey",
             "price": 20000,
-            "creation_date":1675012085304
+            "creation_date": 1675012085304
         },
         "399e344b-bf74-4470-9def-6484aaf6e055": {
             "image": "https://imgcdnblog.carbay.com/wp-content/uploads/2018/07/05033209/Corolla-TOMS.jpg",
@@ -98,7 +98,7 @@
             "mileage": 15000,
             "color": "white",
             "price": 30000,
-            "creation_date":1675013984733
+            "creation_date": 1675013984733
         },
         "1ec27175-9f11-4e3e-8b2d-e296de7716ac": {
             "image": "https://i.redd.it/3r2oh0v0qx521.jpg",
@@ -108,7 +108,7 @@
             "mileage": 25000,
             "color": "white",
             "price": 25000,
-            "creation_date":1675019370234
+            "creation_date": 1675019370234
         },
         "589cdccd-e046-4527-b218-5f4d84c31044": {
             "image": "https://g30.bimmerpost.com/forums/attachment.php?attachmentid=2409721&stc=1&d=1599708267",
@@ -118,7 +118,7 @@
             "mileage": 30000,
             "color": "grey",
             "price": 35000,
-            "creation_date":1675013856749
+            "creation_date": 1675013856749
         },
         "f96b9f48-fa70-4788-8aa1-9a5013c5d584": {
             "image": "https://cdn.carbuzz.com/gallery-images/840x560/666000/0/666039.jpg",
@@ -128,7 +128,7 @@
             "mileage": 35000,
             "color": "white",
             "price": 100000,
-            "creation_date":1675011287544
+            "creation_date": 1675011287544
         },
         "c9ef4213-f679-4ca3-b15f-27b7fd6e245c": {
             "image": "https://i2-prod.derbytelegraph.co.uk/burton/article3072178.ece/ALTERNATES/s615/0_carjohn.jpg",
@@ -138,30 +138,39 @@
             "mileage": 50000,
             "color": "white",
             "price": 20000,
-            "creation_date":1675013207583
+            "creation_date": 1675013207583
         }
     },
     "bids": {
         "3f62b799-fee7-4a0a-9257-0d3035b2fb65": {
-            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
             "user": "Anonymous",
-            "email": "test@gmail.com",
             "bid": 24000,
-            "timestamp":1675017194584
+            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
+            "timestamp": 1675017194584
         },
         "2c0f6343-027c-4968-8a80-cfe7cc1b8dbe": {
-            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
             "user": "Anonymous",
-            "email": "example@gmail.com",
             "bid": 25000,
-            "timestamp":1675017319585
+            "carID": "73dc6baa-1699-4b12-b3df-febb78a20cd2",
+            "timestamp": 1675017319585
         },
         "2c0f6343-027c-4968-8a80-cfe7cc1e826e": {
-            "carID": "347039bf-434a-4277-8c02-dab69e3e9528",
             "user": "Anonymous",
-            "email": "example@gmail.com",
             "bid": 27000,
-            "timestamp":1675017319586
+            "carID": "347039bf-434a-4277-8c02-dab69e3e9528",
+            "timestamp": 1675017319586
+        },
+        "614c0f05-66e2-4009-a161-08558591d976": {
+            "user": "Joe",
+            "bid": "10000",
+            "carID": "347039bf-434a-4277-8c02-dab69e3e9528",
+            "timestamp": 1675118583582
+        },
+        "20123dc0-81f2-477a-8925-e47369a5eee7": {
+            "user": "Joe",
+            "bid": "10000",
+            "carID": "347039bf-434a-4277-8c02-dab69e3e9528",
+            "timestamp": 1675118586664
         }
     }
 }
