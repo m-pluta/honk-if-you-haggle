@@ -272,6 +272,9 @@ async function attachSubmitButtonListener() {
                 body: dataJSON
             });
 
+            const myModal = document.getElementById('btnNewCarModalClose');
+            myModal.click();
+
             loadCars();
         } else {
             console.log('Some inputs are invalid');
