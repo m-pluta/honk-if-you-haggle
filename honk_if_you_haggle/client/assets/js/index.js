@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const endpointRoot = 'http://127.0.0.1:8080/';
-// let currentlyLoadedCar = '';
+let currentlyLoadedCar = '';
 
 // Clears all cards currently present in the card-layout
 function clearCardLayout() {
@@ -26,8 +26,6 @@ async function loadCars() {
             // Unexpected token < in JSON
             console.log('There was a SyntaxError', error);
         } else {
-            console.log('There was an error', error);
-
             showNetworkErrorModal();
         }
     }
@@ -77,7 +75,6 @@ async function loadCars() {
 
 // Loads different page which shows details about the spcific car clicked
 async function loadCar(id) {
-    // currentlyLoadedCar = id;
     let data;
 
     // Make the GET request and handle errors
@@ -89,14 +86,14 @@ async function loadCar(id) {
             // Unexpected token < in JSON
             console.log('There was a SyntaxError', error);
         } else {
-            console.log('There was an error', error);
-
             showNetworkErrorModal();
         }
     }
 
     // Handle the case where data was fetched successfully
     if (data) {
+        currentlyLoadedCar = id;
+
         const websiteBody = document.getElementById('mainWebsiteBody');
         const oneCarViewBody = document.getElementById('oneCarViewBody');
 
