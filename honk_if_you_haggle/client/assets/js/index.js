@@ -27,6 +27,8 @@ async function loadCars() {
             console.log('There was a SyntaxError', error);
         } else {
             console.log('There was an error', error);
+
+            showNetworkErrorModal();
         }
     }
 
@@ -75,15 +77,7 @@ async function loadCars() {
 
 // Loads different page which shows details about the spcific car clicked
 async function loadCar(id) {
-    const websiteBody = document.getElementById('mainWebsiteBody');
-    const oneCarViewBody = document.getElementById('oneCarViewBody');
-
-    // Visually hide main website body
-    websiteBody.classList.add('visually-hidden');
-    oneCarViewBody.classList.remove('visually-hidden');
-
     // currentlyLoadedCar = id;
-
     let data;
 
     // Make the GET request and handle errors
@@ -96,11 +90,20 @@ async function loadCar(id) {
             console.log('There was a SyntaxError', error);
         } else {
             console.log('There was an error', error);
+
+            showNetworkErrorModal();
         }
     }
 
     // Handle the case where data was fetched successfully
     if (data) {
+        const websiteBody = document.getElementById('mainWebsiteBody');
+        const oneCarViewBody = document.getElementById('oneCarViewBody');
+
+        // Visually hide main website body
+        websiteBody.classList.add('visually-hidden');
+        oneCarViewBody.classList.remove('visually-hidden');
+
         const oneCarViewImage = document.getElementById('oneCarViewImage');
         const oneCarViewCarTitle = document.getElementById('oneCarViewCarTitle');
         const oneCarViewBuyPrice = document.getElementById('oneCarViewBuyPrice');
@@ -126,6 +129,14 @@ async function loadCar(id) {
         const creationDate = new Date(data.creation_date);
         oneCarViewDate.innerText = creationDate.toLocaleDateString('en-UK') + ' ' + creationDate.toLocaleTimeString('en-UK');
     }
+}
+
+function showNetworkErrorModal() {
+    // eslint-disable-next-line no-undef
+    const myModal = new bootstrap.Modal(document.getElementById('lostConnectionModal'), {
+        keyboard: false
+        });
+    myModal.show();
 }
 
 // Capitalises every word (sequential characters separated by whitespace) of a given input string
