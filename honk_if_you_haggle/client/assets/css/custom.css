@@ -56,7 +56,7 @@
 }
 
 .one-car-view-img-rounded {
-    border-radius: 10px;
+    border-radius: 15px;
     object-fit: contain; /* keep aspect ratio */
     max-height: 40rem;
 }
@@ -66,7 +66,6 @@
 }
 
 .btn-place-bid {
-    background-color: #e03020;
     width: 90%;
     font-size: larger;
     font-weight: 500;
