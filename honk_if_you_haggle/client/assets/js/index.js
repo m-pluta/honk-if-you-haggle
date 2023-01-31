@@ -108,7 +108,7 @@ async function loadCar(id) {
         const oneCarViewModel = document.getElementById('oneCarViewModel');
         const oneCarViewYear = document.getElementById('oneCarViewYear');
         const oneCarViewMileage = document.getElementById('oneCarViewMileage');
-        const oneCarViewColour = document.getElementById('oneCarViewColour');
+        const oneCarViewColor = document.getElementById('oneCarViewColor');
         const oneCarViewDate = document.getElementById('oneCarViewDate');
 
         // Name of the car
@@ -125,7 +125,7 @@ async function loadCar(id) {
         oneCarViewModel.innerText = capitalise(data.model);
         oneCarViewYear.innerText = data.year;
         oneCarViewMileage.innerText = data.mileage;
-        oneCarViewColour.innerText = capitalise(data.color);
+        oneCarViewColor.innerText = capitalise(data.color);
         oneCarViewDate.innerText = timestampToString(data.creation_date);
 
         // Load all the dynamic data about the bids on the car
@@ -254,7 +254,7 @@ function timestampToString(timestamp) {
 
 // All the input DOM elements in the modals begin with validationModal
 // These are the suffixes that go after this prefix
-const newCarModalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+const newCarModalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Color', 'Price'];
 const placeBidModalInputElmtNames = ['Username', 'Bid'];
 
 // Add functionality such that
@@ -310,7 +310,7 @@ function checkInputElementValidity(inputElmt) {
             regex = /^.+\.(png|jpg|jpeg|webp)$/;
             break;
         case 'validationModalMake':
-        case 'validationModalColour':
+        case 'validationModalColor':
         case 'validationModalUsername':
             // Cannot be only whitespace
             // Must be upper/lower case letters with whitespace
