@@ -23,9 +23,8 @@ const DbData = require(fileNameForJSON);
 app.get('/cars', function (req, resp) {
     // Sorts based on the value of creation_date
     const filteredData = Object.fromEntries(
-        Object.entries(DbData.cars)
-          .sort((a, b) => b[1].creation_date - a[1].creation_date)
-      );
+        Object.entries(DbData.cars).sort((a, b) => b[1].creation_date - a[1].creation_date)
+    );
 
     if (Object.keys(filteredData).length !== 0) {
         // If any cars are present then return them all
@@ -77,9 +76,8 @@ app.post('/cars', function (req, resp) {
 app.get('/bids', function (req, resp) {
     // Sorts based on the value of timestamp
     const filteredData = Object.fromEntries(
-        Object.entries(DbData.bids)
-          .sort((a, b) => b[1].timestamp - a[1].timestamp)
-      );
+        Object.entries(DbData.bids).sort((a, b) => b[1].timestamp - a[1].timestamp)
+    );
 
     if (Object.keys(filteredData).length !== 0) {
         // If any bids are present then return them all
@@ -107,10 +105,7 @@ app.get('/bids/:id', function (req, resp) {
         }
 
         // Sorts based on the value of timestamp
-        filteredData = Object.fromEntries(
-            Object.entries(filteredData)
-            .sort((a, b) => b[1].timestamp - a[1].timestamp)
-        );
+        filteredData = Object.fromEntries(Object.entries(filteredData).sort((a, b) => b[1].timestamp - a[1].timestamp));
 
         if (Object.keys(filteredData).length !== 0) {
             // If any bids are present then return them all

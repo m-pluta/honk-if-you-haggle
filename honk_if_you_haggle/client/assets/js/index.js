@@ -137,12 +137,12 @@ async function loadCar(id) {
 }
 
 // Update the bid info on the OneCarView page
-function loadBidInfo (id) {
+function loadBidInfo(id) {
     loadBidInfoMax(id);
     loadBidInfoNum(id);
 }
 // Update the DOM element which shows the current highest bid on a car listing
-async function loadBidInfoMax (id) {
+async function loadBidInfoMax(id) {
     let data, response;
 
     // Make fetch request and handle any network errors
@@ -170,7 +170,7 @@ async function loadBidInfoMax (id) {
     }
 }
 // Update the DOM element which shows the number of bids a car listing has
-async function loadBidInfoNum (id) {
+async function loadBidInfoNum(id) {
     let data, response;
 
     // Make fetch request and handle any network errors
@@ -206,7 +206,7 @@ function showNetworkErrorModal() {
 }
 
 // Switch from the OneCarView page to the mainWebsite
-function switchtoMainPage () {
+function switchtoMainPage() {
     // Get the body elements
     const mainWebsiteBody = document.getElementById('mainWebsiteBody');
     const oneCarViewBody = document.getElementById('oneCarViewBody');
@@ -220,7 +220,7 @@ function switchtoMainPage () {
 }
 
 // Switch from the mainWebsite page to the OneCarView page
-function switchtoOneCarViewPage () {
+function switchtoOneCarViewPage() {
     // Get the body elements
     const mainWebsiteBody = document.getElementById('mainWebsiteBody');
     const oneCarViewBody = document.getElementById('oneCarViewBody');
@@ -332,8 +332,8 @@ function checkInputElementValidity(inputElmt) {
             regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
             break;
         default:
-            // Supplied element has not been implemented yet
-            // console.log('Unimplemented id: ', inputElmt.id);
+        // Supplied element has not been implemented yet
+        // console.log('Unimplemented id: ', inputElmt.id);
     }
 
     // Validity is defaulted to false for security
@@ -435,14 +435,14 @@ async function attachSubmitButtonListener() {
 }
 
 // Attach an onClick listener to the 'Create a car listing' option in the NavBar so that it opens the newCarModal when clicked
-function attachCreateCarModalListener () {
+function attachCreateCarModalListener() {
     const btnCreateACarListing = document.getElementById('btnCreateACarListing');
     btnCreateACarListing.addEventListener('click', function (event) {
         // Show modal
         // eslint-disable-next-line no-undef
         const myModal = new bootstrap.Modal(document.getElementById('newCarModal'), {
             keyboard: false
-            });
+        });
         myModal.show();
 
         // Clear the modal
@@ -458,7 +458,7 @@ function attachOneCarViewListeners() {
 }
 
 // Button for submitting/placing a bid on a car within the modal
-function attachModalPlaceBidListener () {
+function attachModalPlaceBidListener() {
     // Get reference to the button in the modal
     const btnModalPlaceBid = document.getElementById('btnModalPlaceBid');
 
@@ -499,7 +499,7 @@ function attachModalPlaceBidListener () {
 }
 
 // Button for displaying the viewBidsModal which shows all the current bids on a specific car
-function attachViewBidsListener () {
+function attachViewBidsListener() {
     // Get reference to the button
     const btnViewBids = document.getElementById('btnViewBids');
 
@@ -524,7 +524,7 @@ function attachViewBidsListener () {
             // eslint-disable-next-line no-undef
             const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
                 keyboard: false
-                });
+            });
             myModal.show();
 
             // Clear the layout which stores all the bids displayed
@@ -564,7 +564,7 @@ function attachViewBidsListener () {
 
 // Attach onClick listener to the Place Bid button in the OneCarView page which clears the placeBidModal
 // placeBidModal is opened another way
-function attachPlaceBidListener () {
+function attachPlaceBidListener() {
     const btnPlaceBid = document.getElementById('btnPlaceBid');
 
     btnPlaceBid.addEventListener('click', function (event) {
@@ -573,7 +573,7 @@ function attachPlaceBidListener () {
 }
 
 // Clears all the input fields in the placeBidModal
-function clearPlaceBidModal () {
+function clearPlaceBidModal() {
     for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
         // Get the specific DOM element
         const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
