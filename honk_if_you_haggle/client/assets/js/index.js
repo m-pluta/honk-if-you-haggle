@@ -15,7 +15,7 @@ function clearCardLayout() {
 async function loadCars() {
     let data, response;
 
-    // Make the GET request and handle errors
+    // Make fetch request and handle any network errors
     try {
         response = await fetch(endpointRoot + 'cars/');
         data = await response.json();
@@ -246,6 +246,7 @@ function capitalise(str) {
     return arr.join(' ');
 }
 
+// Convert a timestamp (in milliseconds) to an equivalent human readable string
 function timestampToString(timestamp) {
     const date = new Date(timestamp);
     return date.toLocaleDateString('en-UK') + ' ' + date.toLocaleTimeString('en-UK');
@@ -265,64 +266,84 @@ function attachNavBarListeners() {
     });
 }
 
+// Parent function which attaches Event listeners
 function attachModalEventListeners() {
     attachValidationListeners();
     attachClearButtonListener();
     attachSubmitButtonListener();
+    attachCreateCarModalListener();
 }
 
 function attachValidationListeners() {
+    // Add on-input-change validation to the newCarModal inputs
     for (let i = 0; i < newCarModalInputElmtNames.length; i++) {
-        // Get the specific DOM input element
+        // Get the specific DOM element
         const elementString = 'validationModal' + newCarModalInputElmtNames[i];
         const element = document.getElementById(elementString);
 
         element.addEventListener('input', (event) => {
+            // Update validity-feedback of element
             checkInputElementValidity(element);
         });
     }
 
+    // Add on-input-change validation to the placeBidModal inputs
     for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
-        // Get the specific DOM input element
+        // Get the specific DOM element
         const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
         const element = document.getElementById(elementString);
 
         element.addEventListener('input', (event) => {
+            // Update validity-feedback of element
             checkInputElementValidity(element);
         });
     }
 }
 
-// Changes the validity of a given input DOM element depending on its current value
+// Changes the validity-feedback displayed to the user of a given input element depending on its current value
 function checkInputElementValidity(inputElmt) {
     // Determine which RegEx literal should be used depending on the id of the inputElmt
-    let regex = '';
+    let regex;
     switch (inputElmt.id) {
         case 'validationModalImage':
+            // A valid link ending in .png, .jpg, .jpeg, or .webp
             regex = /^.+\.(png|jpg|jpeg|webp)$/;
             break;
         case 'validationModalMake':
         case 'validationModalColour':
         case 'validationModalUsername':
+            // Cannot be only whitespace
+            // Must be upper/lower case letters with whitespace
             regex = /^(?=\S)[A-Za-z\s]+$/;
             break;
         case 'validationModalModel':
+            // Cannot be only whitespace
+            // Must be upper/lower case letters or numbers with whitespace
             regex = /^(?=\S)[A-Za-z\d\s]+$/;
             break;
         case 'validationModalYear':
         case 'validationModalMileage':
+            // Must be numbers with optional commas separating the digits
             regex = /^\d+(,\d{3})*$/;
             break;
         case 'validationModalPrice':
         case 'validationModalBid':
+            // Must be number in standard decimal format with 0, 1, or 2 decimal digits allowed, separated by commas
             regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
             break;
         default:
+            // Supplied element has not been implemented yet
             console.log('Unimplemented id: ', inputElmt.id);
     }
 
-    const valid = regex.test(inputElmt.value.trim());
+    // Validity is defaulted to false for security
+    let valid = false;
+    // If the supplied inputElmt has been implemented then safe to test the regex
+    if (regex) {
+        valid = regex.test(inputElmt.value.trim());
+    }
 
+    // Change the validity-feedback depending on the value of value
     if (valid) {
         inputElmt.classList.remove('is-invalid');
         inputElmt.classList.add('is-valid');
@@ -331,35 +352,41 @@ function checkInputElementValidity(inputElmt) {
         inputElmt.classList.add('is-invalid');
     }
 
+    // Return whether the supplied inputElmt is currently in a valid state
     return valid;
 }
 
+// Tests if the inputs in a given modal are valid. Returns true iff they are all valid
 function allInputElmtsValid(InputElmtNames) {
     let counter = 0;
     for (let i = 0; i < InputElmtNames.length; i++) {
-        // Get the specific DOM input element
+        // Get the specific DOM element
         const elementString = 'validationModal' + InputElmtNames[i];
         const element = document.getElementById(elementString);
 
+        // Increase counter if element value is valid
         if (checkInputElementValidity(element)) {
             counter++;
         }
     }
 
+    // Return true iff all are valid
     return counter === InputElmtNames.length;
 }
 
-// Attaches on-click listener to the clear button in the modal
+// Attaches onClick listener to the clear button in the newCarModal
 function attachClearButtonListener() {
+    // Get reference to the clear button
     const btnClear = document.getElementById('btnModalClear');
 
     btnClear.addEventListener('click', (event) => {
+        // Go through each input element in the modal
         for (let i = 0; i < newCarModalInputElmtNames.length; i++) {
-            // Get the specific DOM input element
+            // Get the specific DOM element
             const elementString = 'validationModal' + newCarModalInputElmtNames[i];
             const element = document.getElementById(elementString);
 
-            // Clear value and reset validity feedback
+            // Clear value and reset validity-feedback
             element.value = '';
             element.classList.remove('is-valid');
             element.classList.remove('is-invalid');
@@ -367,24 +394,28 @@ function attachClearButtonListener() {
     });
 }
 
+// Attaches onClick listener to the submit button in the newCarModal
 async function attachSubmitButtonListener() {
+    // Get reference to the submit button
     const btnSubmit = document.getElementById('btnModalSubmit');
 
     btnSubmit.addEventListener('click', async function (event) {
+        // Test if the user's inputs are valid
         if (allInputElmtsValid(newCarModalInputElmtNames)) {
+            // Create a FormData object to store all the user's inputs
             const newCarForm = document.getElementById('newCarForm');
             // eslint-disable-next-line no-undef
             const data = new FormData(newCarForm);
 
             // Convert from FormData to JSON
-            // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
+            // Code from: https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
             let dataJSON = JSON.stringify(Object.fromEntries(data));
-            console.log(dataJSON);
+            // console.log(dataJSON);
 
             // Remove all unnecessary whitespace
-            // https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
+            // Code from: https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
             dataJSON = dataJSON.replace(/ +/g, '');
-            console.log(dataJSON);
+            // console.log(dataJSON);
 
             // eslint-disable-next-line no-unused-vars
             const response = await fetch(endpointRoot + 'cars/', {
@@ -395,18 +426,43 @@ async function attachSubmitButtonListener() {
                 body: dataJSON
             });
 
+            // Close the modal
             const myModal = document.getElementById('btnNewCarModalClose');
             myModal.click();
 
-            loadCars();
+            // Switch to other page and reload cars
+            switchtoMainPage();
         }
     });
 }
 
+// Attach an onClick listener to the 'Create a car listing' option in the NavBar so that it opens the newCarModal when clicked
+function attachCreateCarModalListener () {
+    const btnCreateACarListing = document.getElementById('btnCreateACarListing');
+    btnCreateACarListing.addEventListener('click', function (event) {
+        // Show modal
+        // eslint-disable-next-line no-undef
+        const myModal = new bootstrap.Modal(document.getElementById('newCarModal'), {
+            keyboard: false
+            });
+        myModal.show();
+
+        // Clear the modal
+        const btnClear = document.getElementById('btnModalClear');
+        btnClear.click();
+    });
+}
+
 function attachOneCarViewListeners() {
+    attachModalPlaceBidListener();
+    attachViewBidsListener();
+    attachPlaceBidListener();
+}
+
+// Button for submitting/placing a bid on a car within the modal
+function attachModalPlaceBidListener () {
+    // Get reference to the button in the modal
     const btnModalPlaceBid = document.getElementById('btnModalPlaceBid');
-    const btnViewBids = document.getElementById('btnViewBids');
-    const btnPlaceBid = document.getElementById('btnPlaceBid');
 
     btnModalPlaceBid.addEventListener('click', async function (event) {
         // Check validity of input
@@ -414,14 +470,16 @@ function attachOneCarViewListeners() {
             const placeBidForm = document.getElementById('placeBidForm');
             // eslint-disable-next-line no-undef
             const data = new FormData(placeBidForm);
+
+            // Append the car's ID to the bid
             data.append('carID', currentlyLoadedCar);
 
             // Convert from FormData to JSON
-            // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
+            // Code from: https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
             let dataJSON = JSON.stringify(Object.fromEntries(data));
 
             // Remove all unnecessary whitespace
-            // https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
+            // Code from: https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
             dataJSON = dataJSON.replace(/ +/g, '');
 
             // eslint-disable-next-line no-unused-vars
@@ -436,29 +494,34 @@ function attachOneCarViewListeners() {
             const myModal = document.getElementById('btnPlaceBidModalClose');
             myModal.click();
 
+            // Reload the BidInfo since the bid placed may be the new maximum and the number of bids has increased
             loadBidInfo(currentlyLoadedCar);
         }
     });
+}
+
+// Button for displaying the viewBidsModal which shows all the current bids on a specific car
+function attachViewBidsListener () {
+    // Get reference to the button
+    const btnViewBids = document.getElementById('btnViewBids');
 
     btnViewBids.addEventListener('click', async function (event) {
-        let data;
+        let data, response;
 
-        // Make the GET request and handle errors
+        // Make fetch request and handle any network errors
         try {
-            console.log(endpointRoot + 'bids/' + currentlyLoadedCar);
-            const response = await fetch(endpointRoot + 'bids/' + currentlyLoadedCar);
+            response = await fetch(endpointRoot + 'bids/' + currentlyLoadedCar);
             data = await response.json();
         } catch (error) {
             if (error instanceof SyntaxError) {
-                // Unexpected token < in JSON
-                console.log('There was a SyntaxError', error);
+                // There was a SyntaxError
             } else {
                 showNetworkErrorModal();
             }
         }
 
-        // Handle the case where data was fetched successfully
-        if (data) {
+        // Update DOM depending on the response and data sent from the server
+        if (response?.ok) {
             // Show the modal
             // eslint-disable-next-line no-undef
             const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
@@ -466,47 +529,59 @@ function attachOneCarViewListeners() {
                 });
             myModal.show();
 
+            // Clear the layout which stores all the bids displayed
             const bidListElt = document.getElementById('bidList');
             bidListElt.innerHTML = '';
 
-            if (Object.keys(data).length === 0) {
-                const lblViewBidsModalNoBids = document.getElementById('lblViewBidsModalNoBids');
+            // Label which says there are no bids currently
+            const lblViewBidsModalNoBids = document.getElementById('lblViewBidsModalNoBids');
+            if (data?.message === 'No bids found') {
+                // Show 'No bids yet' label if no bids were found on the server
                 lblViewBidsModalNoBids.classList.remove('visually-hidden');
             } else {
+                // Hide the 'No bids yet' label if bids were found on the server
+                lblViewBidsModalNoBids.classList.add('visually-hidden');
+
                 const templateContent = document.getElementById('bidTemplate').content;
 
-                // Create a card for each car in data
+                // Create a card for each bid
                 for (const key in data) {
                     const bidData = data[key];
 
-                    // Copy the HTML from the template in index.html
+                    // Copy the HTML from the template
                     const copyHTML = document.importNode(templateContent, true);
 
                     // Modify each part in the template with the appropriate data
-
                     copyHTML.querySelector('.bidCardUser').textContent = bidData.user;
                     copyHTML.querySelector('.bidCardBid').textContent = '£' + bidData.bid;
                     copyHTML.querySelector('.bidCardTimestamp').textContent = timestampToString(bidData.timestamp);
 
-                    // Append card to the card-layout
+                    // Append card to the Card Layout
                     bidListElt.appendChild(copyHTML);
                 }
             }
         }
     });
+}
+
+// Attach onClick listener to the Place Bid button in the OneCarView page which clears the placeBidModal
+// placeBidModal is opened another way
+function attachPlaceBidListener () {
+    const btnPlaceBid = document.getElementById('btnPlaceBid');
 
     btnPlaceBid.addEventListener('click', function (event) {
         clearPlaceBidModal();
     });
 }
 
+// Clears all the input fields in the placeBidModal
 function clearPlaceBidModal () {
     for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
-        // Get the specific DOM input element
+        // Get the specific DOM element
         const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
         const element = document.getElementById(elementString);
 
-        // Clear value and reset validity feedback
+        // Clear value and reset validity-feedback
         element.value = '';
         element.classList.remove('is-valid');
         element.classList.remove('is-invalid');
