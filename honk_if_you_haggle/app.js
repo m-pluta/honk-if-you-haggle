@@ -19,17 +19,6 @@ app.use(express.json());
 const fileNameForJSON = '.' + path.sep + 'honk_if_you_haggle_db.json';
 const DbData = require(fileNameForJSON);
 
-// Returns data about a specific car with a specific id
-app.get('/cars/:id', function (req, resp) {
-    const reqID = req.params.id;
-
-    // Find the car with the given id
-    const filteredData = DbData.cars[reqID];
-
-    // Return the car's data in JSON format
-    resp.status(200).json(filteredData);
-});
-
 // Returns all the cars in order from newest to oldest
 app.get('/cars', function (req, resp) {
     // Sorts based on the value of creation_date
@@ -38,111 +27,183 @@ app.get('/cars', function (req, resp) {
           .sort((a, b) => b[1].creation_date - a[1].creation_date)
       );
 
-    resp.status(200).json(filteredData);
+    if (Object.keys(filteredData).length !== 0) {
+        // If any cars are present then return them all
+        resp.status(200).json(filteredData);
+    } else {
+        // Else return an Error 404
+        resp.status(404).send({ message: 'No cars found' });
+    }
 });
 
-// Adds a new car to the database based on user input
-app.post('/cars', function (req, resp) {
-    // Generate new UUID
-    const id = uuidv4();
+// Returns data about a specific car with a specific id
+app.get('/cars/:id', function (req, resp) {
+    const carID = req.params.id;
 
-    // Add timestamp for creation_date to the car
+    // Attempts to access the car with the given id
+    const carFound = DbData.cars[carID];
+
+    if (carFound) {
+        // If a car was found then return its data
+        resp.status(200).json(carFound);
+    } else {
+        // Else return an Error 404
+        resp.status(404).send({ message: 'Car not found' });
+    }
+});
+
+// Adds a new car to the database
+app.post('/cars', function (req, resp) {
+    // Generate new UUID for the new car
+    const generatedID = uuidv4();
+
     const details = req.body;
+
+    // Create and add creation_date to the details of the car
     const currentDate = new Date();
     details.creation_date = currentDate.getTime();
 
-    // Add data about car to the JSON object storing the DB
-    DbData.cars[id] = details;
+    // Add the car and its details to the DB
+    DbData.cars[generatedID] = details;
 
-    // Write the DB to the file to update it
+    // Write the contents of the DB to the file
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
 
-    resp.send(DbData.cars);
+    // Return a JSON object containing the newly created car to the user
+    resp.send({ [generatedID]: DbData.cars[generatedID] });
 });
 
 // Returns all the bids ever made for any car, sorted newest to oldest
 app.get('/bids', function (req, resp) {
+    // Sorts based on the value of timestamp
     const filteredData = Object.fromEntries(
         Object.entries(DbData.bids)
           .sort((a, b) => b[1].timestamp - a[1].timestamp)
       );
 
-    resp.status(200).json(filteredData);
-});
-
-// Returns all the bids made for a certain car
-app.get('/bids/:id', function (req, resp) {
-    const reqID = req.params.id;
-
-    let filteredData = {};
-    for (const id in DbData.bids) {
-        if (DbData.bids[id].carID === reqID) {
-            filteredData[id] = DbData.bids[id];
-        }
+    if (Object.keys(filteredData).length !== 0) {
+        // If any bids are present then return them all
+        resp.status(200).json(filteredData);
+    } else {
+        // Else, return an Error 404
+        resp.status(404).send({ message: 'No bids found' });
     }
-
-    filteredData = Object.fromEntries(
-        Object.entries(filteredData)
-          .sort((a, b) => b[1].timestamp - a[1].timestamp)
-      );
-
-    resp.status(200).json(filteredData);
 });
 
-// Returns the maximum bid for a certain car
+// Returns all the bids for a specific car, sorted newest to oldest
+app.get('/bids/:id', function (req, resp) {
+    const carID = req.params.id;
+
+    // Attempts to access the car with id = carID
+    const carFound = DbData.cars[carID];
+    // If car was found then continue, if not then return an error 404
+    if (carFound) {
+        // Filter the data to include only the bids belonging to the specific car
+        let filteredData = {};
+        for (const bidID in DbData.bids) {
+            if (DbData.bids[bidID].carID === carID) {
+                filteredData[bidID] = DbData.bids[bidID];
+            }
+        }
+
+        // Sorts based on the value of timestamp
+        filteredData = Object.fromEntries(
+            Object.entries(filteredData)
+            .sort((a, b) => b[1].timestamp - a[1].timestamp)
+        );
+
+        if (Object.keys(filteredData).length !== 0) {
+            // If any bids are present then return them all
+            resp.status(200).json(filteredData);
+        } else {
+            // Else, return an Error 404
+            resp.status(404).send({ message: 'No bids found' });
+        }
+    } else {
+        resp.status(404).send({ message: 'Car not found' });
+    }
+});
+
+// Returns the bid with maximum value of `bid` for a specific car
 app.get('/bids/:id/max', function (req, resp) {
     const carID = req.params.id;
 
-    let maxBid = 0;
-    let maxBidID;
+    // Attempts to access the car with id = carID
+    const carFound = DbData.cars[carID];
+    // If the car was found then continue, if not then return an error 404
+    if (carFound) {
+        let maxBid = 0;
+        let maxBidID; // Target variable i.e. value of this is used later
 
-    for (const bidID in DbData.bids) {
-        const bidObj = DbData.bids[bidID];
-        if (bidObj.bid > maxBid && bidObj.carID === carID) {
-            maxBid = bidObj.bid;
-            maxBidID = bidID;
+        // Find the ID of the bid with the largest value of `bid`
+        for (const bidID in DbData.bids) {
+            const bidObj = DbData.bids[bidID];
+            if (bidObj.bid > maxBid && bidObj.carID === carID) {
+                maxBid = bidObj.bid;
+                maxBidID = bidID;
+            }
         }
-    }
 
-    if (maxBidID) {
-        resp.status(200).json(DbData.bids[maxBidID]);
+        if (maxBidID) {
+            // If an ID for the max bid was found then return the bid object
+            resp.status(200).json(DbData.bids[maxBidID]);
+        } else {
+            // Else, return an Error 404
+            resp.status(404).send({ message: 'No bids found' });
+        }
     } else {
-        resp.status(200).send({});
+        // Else, return an Error 404
+        resp.status(404).send({ message: 'Car not found' });
     }
 });
 
-// Returns the number of bids for a certain car
+// Returns the number of bids for a specific car
 app.get('/bids/:id/num', function (req, resp) {
     const carID = req.params.id;
 
-    let counter = 0;
+    // Attempts to access the car with id = carID
+    const carFound = DbData.cars[carID];
+    // If the car was found then continue, if not then return an error 404
+    if (carFound) {
+        let counter = 0;
 
-    for (const bidID in DbData.bids) {
-        const bidObj = DbData.bids[bidID];
-        if (bidObj.carID === carID) {
-            counter++;
+        // Count the number of bids for that specific car
+        for (const bidID in DbData.bids) {
+            const bidObj = DbData.bids[bidID];
+            if (bidObj.carID === carID) {
+                counter++;
+            }
         }
-    }
 
-    resp.status(200).json({ bids: counter });
+        if (counter !== 0) {
+            resp.status(200).json({ bids: counter });
+        } else {
+            resp.status(404).send({ message: 'No bids found' });
+        }
+    } else {
+        resp.status(404).send({ message: 'Car not found' });
+    }
 });
 
-// Adds a new bid to the data for a certain car
+// Adds a new bid to the data for a specific car
 app.post('/bids', function (req, resp) {
-    // Generate new UUID
-    const id = uuidv4();
+    // Generate new UUID for the new bid
+    const generatedID = uuidv4();
 
-    // Add timestamp for the bid
     const details = req.body;
+
+    // Add timestamp to the details of the bid
     const currentDate = new Date();
     details.timestamp = currentDate.getTime();
 
-    // Add data about car to the JSON object storing the DB
-    DbData.bids[id] = details;
+    // Add the bid and its details to the DB
+    DbData.bids[generatedID] = details;
 
-    // Write the DB to the file to update it
+    // Write the contents of the DB to the file
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
-    resp.send(DbData.bids);
+
+    // Return a JSON object containing the newly created bid to the user
+    resp.send({ [generatedID]: DbData.bids[generatedID] });
 });
 
 // Export app
