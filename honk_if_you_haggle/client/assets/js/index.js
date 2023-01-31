@@ -128,45 +128,67 @@ async function loadCar(id) {
     }
 }
 
-async function loadBidInfo (id) {
-    let data1, data2;
+// Update the bid info on the OneCarView page
+function loadBidInfo (id) {
+    loadBidInfoMax(id);
+    loadBidInfoNum(id);
+}
+// Update the DOM element which shows the current highest bid on a car listing
+async function loadBidInfoMax (id) {
+    let data;
+    let response;
 
-    // Make the GET request and handle errors
+    // Make fetch request and handle any network errors
     try {
-        const response1 = await fetch(endpointRoot + 'bids/' + id + '/max/');
-        data1 = await response1.json();
+        response = await fetch(endpointRoot + 'bids/' + id + '/max/');
+        data = await response.json();
     } catch (error) {
         if (error instanceof SyntaxError) {
-            // Unexpected token < in JSON
-            console.log('There was a SyntaxError', error);
-        } else {
-            showNetworkErrorModal();
-        }
-    }
-    try {
-        const response2 = await fetch(endpointRoot + 'bids/' + id + '/num/');
-        data2 = await response2.json();
-    } catch (error) {
-        if (error instanceof SyntaxError) {
-            // Unexpected token < in JSON
-            console.log('There was a SyntaxError', error);
+            // There was a SyntaxError
         } else {
             showNetworkErrorModal();
         }
     }
 
-    if (data1) {
-        const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
-        if (Object.keys(data1).length !== 0) {
-            oneCarViewBidPrice.innerText = '£' + data1.bid;
-        } else {
+    // Update DOM depending on the response and data sent from the server
+    const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
+    if (response?.ok) {
+        if (data?.message === 'No bids found') {
             oneCarViewBidPrice.innerText = 'No bids made yet';
+        } else {
+            oneCarViewBidPrice.innerText = '£' + data.bid;
+        }
+    } else if (response?.status === 404) {
+        // 'Car not found'
+    }
+}
+// Update the DOM element which shows the number of bids a car listing has
+async function loadBidInfoNum (id) {
+    let data;
+    let response;
+
+    // Make fetch request and handle any network errors
+    try {
+        response = await fetch(endpointRoot + 'bids/' + id + '/num/');
+        data = await response.json();
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            // There was a SyntaxError
+        } else {
+            showNetworkErrorModal();
         }
     }
 
-    if (data2) {
-        const lblNumberOfBids = document.getElementById('lblNumberOfBids');
-        lblNumberOfBids.innerText = data2.bids;
+    // Update DOM depending on the response and data sent from the server
+    const lblNumberOfBids = document.getElementById('lblNumberOfBids');
+    if (response?.ok) {
+        if (data?.message === 'No bids found') {
+            lblNumberOfBids.innerText = 0;
+        } else {
+            lblNumberOfBids.innerText = data.bids;
+        }
+    } else if (response?.status === 404) {
+        // 'Car not found'
     }
 }
 

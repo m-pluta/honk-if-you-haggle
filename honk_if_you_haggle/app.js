@@ -31,8 +31,8 @@ app.get('/cars', function (req, resp) {
         // If any cars are present then return them all
         resp.status(200).json(filteredData);
     } else {
-        // Else return an Error 404
-        resp.status(404).send({ message: 'No cars found' });
+        // Else return an appropriate message
+        resp.status(200).send({ message: 'No cars found' });
     }
 });
 
@@ -70,7 +70,7 @@ app.post('/cars', function (req, resp) {
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
 
     // Return a JSON object containing the newly created car to the user
-    resp.send({ [generatedID]: DbData.cars[generatedID] });
+    resp.status(200).send({ [generatedID]: DbData.cars[generatedID] });
 });
 
 // Returns all the bids ever made for any car, sorted newest to oldest
@@ -85,8 +85,8 @@ app.get('/bids', function (req, resp) {
         // If any bids are present then return them all
         resp.status(200).json(filteredData);
     } else {
-        // Else, return an Error 404
-        resp.status(404).send({ message: 'No bids found' });
+        // Else return an appropriate message
+        resp.status(200).send({ message: 'No bids found' });
     }
 });
 
@@ -96,7 +96,7 @@ app.get('/bids/:id', function (req, resp) {
 
     // Attempts to access the car with id = carID
     const carFound = DbData.cars[carID];
-    // If car was found then continue, if not then return an error 404
+    // If car was found then continue, if not then return an appropriate message
     if (carFound) {
         // Filter the data to include only the bids belonging to the specific car
         let filteredData = {};
@@ -116,8 +116,8 @@ app.get('/bids/:id', function (req, resp) {
             // If any bids are present then return them all
             resp.status(200).json(filteredData);
         } else {
-            // Else, return an Error 404
-            resp.status(404).send({ message: 'No bids found' });
+            // Else return an appropriate message
+            resp.status(200).send({ message: 'No bids found' });
         }
     } else {
         resp.status(404).send({ message: 'Car not found' });
@@ -130,7 +130,7 @@ app.get('/bids/:id/max', function (req, resp) {
 
     // Attempts to access the car with id = carID
     const carFound = DbData.cars[carID];
-    // If the car was found then continue, if not then return an error 404
+    // If the car was found then continue, if not then return an appropriate message
     if (carFound) {
         let maxBid = 0;
         let maxBidID; // Target variable i.e. value of this is used later
@@ -148,8 +148,8 @@ app.get('/bids/:id/max', function (req, resp) {
             // If an ID for the max bid was found then return the bid object
             resp.status(200).json(DbData.bids[maxBidID]);
         } else {
-            // Else, return an Error 404
-            resp.status(404).send({ message: 'No bids found' });
+            // Else return an appropriate message
+            resp.status(200).send({ message: 'No bids found' });
         }
     } else {
         // Else, return an Error 404
@@ -178,7 +178,7 @@ app.get('/bids/:id/num', function (req, resp) {
         if (counter !== 0) {
             resp.status(200).json({ bids: counter });
         } else {
-            resp.status(404).send({ message: 'No bids found' });
+            resp.status(200).send({ message: 'No bids found' });
         }
     } else {
         resp.status(404).send({ message: 'Car not found' });
@@ -203,7 +203,7 @@ app.post('/bids', function (req, resp) {
     fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
 
     // Return a JSON object containing the newly created bid to the user
-    resp.send({ [generatedID]: DbData.bids[generatedID] });
+    resp.status(200).send({ [generatedID]: DbData.bids[generatedID] });
 });
 
 // Export app
