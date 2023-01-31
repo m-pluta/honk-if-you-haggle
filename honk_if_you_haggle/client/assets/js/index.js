@@ -216,9 +216,10 @@ function timestampToString(timestamp) {
     return date.toLocaleDateString('en-UK') + ' ' + date.toLocaleTimeString('en-UK');
 }
 
-// All the input DOM element in the modal begin with validationModal
+// All the input DOM elements in the modals begin with validationModal
 // These are the suffixes that go after this prefix
-const modalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+const newCarModalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
+const placeBidModalInputElmtNames = ['Username', 'Bid'];
 
 function attachNavBarListeners() {
     const btnNavBarBrand = document.getElementById('btnNavBarBrand');
@@ -230,10 +231,11 @@ function attachNavBarListeners() {
 function attachOneCarViewListeners() {
     const btnModalPlaceBid = document.getElementById('btnModalPlaceBid');
     const btnViewBids = document.getElementById('btnViewBids');
+    const btnPlaceBid = document.getElementById('btnPlaceBid');
 
     btnModalPlaceBid.addEventListener('click', async function (event) {
         // Check validity of input
-        if (true) {
+        if (allInputElmtsValid(placeBidModalInputElmtNames)) {
             const placeBidForm = document.getElementById('placeBidForm');
             // eslint-disable-next-line no-undef
             const data = new FormData(placeBidForm);
@@ -317,6 +319,23 @@ function attachOneCarViewListeners() {
             }
         }
     });
+
+    btnPlaceBid.addEventListener('click', function (event) {
+        clearPlaceBidModal();
+    });
+}
+
+function clearPlaceBidModal () {
+    for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
+        // Get the specific DOM input element
+        const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
+        const element = document.getElementById(elementString);
+
+        // Clear value and reset validity feedback
+        element.value = '';
+        element.classList.remove('is-valid');
+        element.classList.remove('is-invalid');
+    }
 }
 
 function attachModalEventListeners() {
@@ -326,9 +345,19 @@ function attachModalEventListeners() {
 }
 
 function attachValidationListeners() {
-    for (let i = 0; i < modalInputElmtNames.length; i++) {
+    for (let i = 0; i < newCarModalInputElmtNames.length; i++) {
         // Get the specific DOM input element
-        const elementString = 'validationModal' + modalInputElmtNames[i];
+        const elementString = 'validationModal' + newCarModalInputElmtNames[i];
+        const element = document.getElementById(elementString);
+
+        element.addEventListener('input', (event) => {
+            checkInputElementValidity(element);
+        });
+    }
+
+    for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
+        // Get the specific DOM input element
+        const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
         const element = document.getElementById(elementString);
 
         element.addEventListener('input', (event) => {
@@ -347,6 +376,7 @@ function checkInputElementValidity(inputElmt) {
             break;
         case 'validationModalMake':
         case 'validationModalColour':
+        case 'validationModalUsername':
             regex = /^(?=\S)[A-Za-z\s]+$/;
             break;
         case 'validationModalModel':
@@ -357,6 +387,7 @@ function checkInputElementValidity(inputElmt) {
             regex = /^\d+(,\d{3})*$/;
             break;
         case 'validationModalPrice':
+        case 'validationModalBid':
             regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
             break;
         default:
@@ -376,11 +407,11 @@ function checkInputElementValidity(inputElmt) {
     return valid;
 }
 
-function allInputElmtsValid() {
+function allInputElmtsValid(InputElmtNames) {
     let counter = 0;
-    for (let i = 0; i < modalInputElmtNames.length; i++) {
+    for (let i = 0; i < InputElmtNames.length; i++) {
         // Get the specific DOM input element
-        const elementString = 'validationModal' + modalInputElmtNames[i];
+        const elementString = 'validationModal' + InputElmtNames[i];
         const element = document.getElementById(elementString);
 
         if (checkInputElementValidity(element)) {
@@ -388,7 +419,7 @@ function allInputElmtsValid() {
         }
     }
 
-    return counter === modalInputElmtNames.length;
+    return counter === InputElmtNames.length;
 }
 
 // Attaches on-click listener to the clear button in the modal
@@ -396,9 +427,9 @@ function attachClearButtonListener() {
     const btnClear = document.getElementById('btnModalClear');
 
     btnClear.addEventListener('click', (event) => {
-        for (let i = 0; i < modalInputElmtNames.length; i++) {
+        for (let i = 0; i < newCarModalInputElmtNames.length; i++) {
             // Get the specific DOM input element
-            const elementString = 'validationModal' + modalInputElmtNames[i];
+            const elementString = 'validationModal' + newCarModalInputElmtNames[i];
             const element = document.getElementById(elementString);
 
             // Clear value and reset validity feedback
@@ -413,7 +444,7 @@ async function attachSubmitButtonListener() {
     const btnSubmit = document.getElementById('btnModalSubmit');
 
     btnSubmit.addEventListener('click', async function (event) {
-        if (allInputElmtsValid()) {
+        if (allInputElmtsValid(newCarModalInputElmtNames)) {
             const newCarForm = document.getElementById('newCarForm');
             // eslint-disable-next-line no-undef
             const data = new FormData(newCarForm);
