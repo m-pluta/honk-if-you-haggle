@@ -333,7 +333,7 @@ function checkInputElementValidity(inputElmt) {
             break;
         default:
             // Supplied element has not been implemented yet
-            console.log('Unimplemented id: ', inputElmt.id);
+            // console.log('Unimplemented id: ', inputElmt.id);
     }
 
     // Validity is defaulted to false for security
@@ -410,12 +410,10 @@ async function attachSubmitButtonListener() {
             // Convert from FormData to JSON
             // Code from: https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
             let dataJSON = JSON.stringify(Object.fromEntries(data));
-            // console.log(dataJSON);
 
             // Remove all unnecessary whitespace
             // Code from: https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
             dataJSON = dataJSON.replace(/ +/g, '');
-            // console.log(dataJSON);
 
             // eslint-disable-next-line no-unused-vars
             const response = await fetch(endpointRoot + 'cars/', {
