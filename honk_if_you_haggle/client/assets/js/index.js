@@ -198,44 +198,51 @@ async function loadBidInfoNum (id) {
     }
 }
 
+// Show a modal which tells the user that a network error occurred
 function showNetworkErrorModal() {
     // eslint-disable-next-line no-undef
-    const myModal = new bootstrap.Modal(document.getElementById('lostConnectionModal'), {
-        keyboard: false
-        });
+    const myModal = new bootstrap.Modal(document.getElementById('lostConnectionModal'), {});
     myModal.show();
 }
 
+// Switch from the OneCarView page to the mainWebsite
 function switchtoMainPage () {
-    // Clear current state of page
-
-    const websiteBody = document.getElementById('mainWebsiteBody');
+    // Get the body elements
+    const mainWebsiteBody = document.getElementById('mainWebsiteBody');
     const oneCarViewBody = document.getElementById('oneCarViewBody');
 
-    // Visually hide main website body
-    websiteBody.classList.remove('visually-hidden');
+    // Visually hide/unhide
+    mainWebsiteBody.classList.remove('visually-hidden');
     oneCarViewBody.classList.add('visually-hidden');
 
+    // Reload all the cars into the page
     loadCars();
 }
 
+// Switch from the mainWebsite page to the OneCarView page
 function switchtoOneCarViewPage () {
-    // Clear current state of page
-
-    const websiteBody = document.getElementById('mainWebsiteBody');
+    // Get the body elements
+    const mainWebsiteBody = document.getElementById('mainWebsiteBody');
     const oneCarViewBody = document.getElementById('oneCarViewBody');
 
-    // Visually hide main website body
-    websiteBody.classList.add('visually-hidden');
+    // Visually hide/unhide
+    mainWebsiteBody.classList.add('visually-hidden');
     oneCarViewBody.classList.remove('visually-hidden');
 }
 
-// Capitalises every word (sequential characters separated by whitespace) of a given input string
+// Capitalises every word of a given input string
+// Word: sequential characters separated by whitespace
 function capitalise(str) {
+    // Separate String into words
     const arr = str.split(' ');
+
+    // Go through each word
     for (let i = 0; i < arr.length; i++) {
+        // Capitalise the first character and attach the rest of the word
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
+
+    // Join the words back into a single string
     return arr.join(' ');
 }
 
@@ -249,121 +256,13 @@ function timestampToString(timestamp) {
 const newCarModalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Colour', 'Price'];
 const placeBidModalInputElmtNames = ['Username', 'Bid'];
 
+// Add functionality such that
+// if the user clicks on the website logo/brand name then they are navigated to the mainWebsite
 function attachNavBarListeners() {
     const btnNavBarBrand = document.getElementById('btnNavBarBrand');
     btnNavBarBrand.addEventListener('click', (event) => {
         switchtoMainPage();
     });
-}
-
-function attachOneCarViewListeners() {
-    const btnModalPlaceBid = document.getElementById('btnModalPlaceBid');
-    const btnViewBids = document.getElementById('btnViewBids');
-    const btnPlaceBid = document.getElementById('btnPlaceBid');
-
-    btnModalPlaceBid.addEventListener('click', async function (event) {
-        // Check validity of input
-        if (allInputElmtsValid(placeBidModalInputElmtNames)) {
-            const placeBidForm = document.getElementById('placeBidForm');
-            // eslint-disable-next-line no-undef
-            const data = new FormData(placeBidForm);
-            data.append('carID', currentlyLoadedCar);
-
-            // Convert from FormData to JSON
-            // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
-            let dataJSON = JSON.stringify(Object.fromEntries(data));
-
-            // Remove all unnecessary whitespace
-            // https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
-            dataJSON = dataJSON.replace(/ +/g, '');
-
-            // eslint-disable-next-line no-unused-vars
-            const response = await fetch(endpointRoot + 'bids/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: dataJSON
-            });
-
-            const myModal = document.getElementById('btnPlaceBidModalClose');
-            myModal.click();
-
-            loadBidInfo(currentlyLoadedCar);
-        }
-    });
-
-    btnViewBids.addEventListener('click', async function (event) {
-        let data;
-
-        // Make the GET request and handle errors
-        try {
-            console.log(endpointRoot + 'bids/' + currentlyLoadedCar);
-            const response = await fetch(endpointRoot + 'bids/' + currentlyLoadedCar);
-            data = await response.json();
-        } catch (error) {
-            if (error instanceof SyntaxError) {
-                // Unexpected token < in JSON
-                console.log('There was a SyntaxError', error);
-            } else {
-                showNetworkErrorModal();
-            }
-        }
-
-        // Handle the case where data was fetched successfully
-        if (data) {
-            // Show the modal
-            // eslint-disable-next-line no-undef
-            const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
-                keyboard: false
-                });
-            myModal.show();
-
-            const bidListElt = document.getElementById('bidList');
-            bidListElt.innerHTML = '';
-
-            if (Object.keys(data).length === 0) {
-                const lblViewBidsModalNoBids = document.getElementById('lblViewBidsModalNoBids');
-                lblViewBidsModalNoBids.classList.remove('visually-hidden');
-            } else {
-                const templateContent = document.getElementById('bidTemplate').content;
-
-                // Create a card for each car in data
-                for (const key in data) {
-                    const bidData = data[key];
-
-                    // Copy the HTML from the template in index.html
-                    const copyHTML = document.importNode(templateContent, true);
-
-                    // Modify each part in the template with the appropriate data
-
-                    copyHTML.querySelector('.bidCardUser').textContent = bidData.user;
-                    copyHTML.querySelector('.bidCardBid').textContent = '£' + bidData.bid;
-                    copyHTML.querySelector('.bidCardTimestamp').textContent = timestampToString(bidData.timestamp);
-
-                    // Append card to the card-layout
-                    bidListElt.appendChild(copyHTML);
-                }
-            }
-        }
-    });
-
-    btnPlaceBid.addEventListener('click', function (event) {
-        clearPlaceBidModal();
-    });
-}
-
-function clearPlaceBidModal () {
-    for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
-        // Get the specific DOM input element
-        const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
-        const element = document.getElementById(elementString);
-
-        // Clear value and reset validity feedback
-        element.value = '';
-        element.classList.remove('is-valid');
-        element.classList.remove('is-invalid');
-    }
 }
 
 function attachModalEventListeners() {
@@ -504,14 +403,118 @@ async function attachSubmitButtonListener() {
     });
 }
 
-// Purpose: Load all cars into card-layout when DOM loads
+function attachOneCarViewListeners() {
+    const btnModalPlaceBid = document.getElementById('btnModalPlaceBid');
+    const btnViewBids = document.getElementById('btnViewBids');
+    const btnPlaceBid = document.getElementById('btnPlaceBid');
+
+    btnModalPlaceBid.addEventListener('click', async function (event) {
+        // Check validity of input
+        if (allInputElmtsValid(placeBidModalInputElmtNames)) {
+            const placeBidForm = document.getElementById('placeBidForm');
+            // eslint-disable-next-line no-undef
+            const data = new FormData(placeBidForm);
+            data.append('carID', currentlyLoadedCar);
+
+            // Convert from FormData to JSON
+            // https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
+            let dataJSON = JSON.stringify(Object.fromEntries(data));
+
+            // Remove all unnecessary whitespace
+            // https://stackoverflow.com/questions/7635952/javascript-how-to-remove-all-extra-spacing-between-words
+            dataJSON = dataJSON.replace(/ +/g, '');
+
+            // eslint-disable-next-line no-unused-vars
+            const response = await fetch(endpointRoot + 'bids/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: dataJSON
+            });
+
+            const myModal = document.getElementById('btnPlaceBidModalClose');
+            myModal.click();
+
+            loadBidInfo(currentlyLoadedCar);
+        }
+    });
+
+    btnViewBids.addEventListener('click', async function (event) {
+        let data;
+
+        // Make the GET request and handle errors
+        try {
+            console.log(endpointRoot + 'bids/' + currentlyLoadedCar);
+            const response = await fetch(endpointRoot + 'bids/' + currentlyLoadedCar);
+            data = await response.json();
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                // Unexpected token < in JSON
+                console.log('There was a SyntaxError', error);
+            } else {
+                showNetworkErrorModal();
+            }
+        }
+
+        // Handle the case where data was fetched successfully
+        if (data) {
+            // Show the modal
+            // eslint-disable-next-line no-undef
+            const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
+                keyboard: false
+                });
+            myModal.show();
+
+            const bidListElt = document.getElementById('bidList');
+            bidListElt.innerHTML = '';
+
+            if (Object.keys(data).length === 0) {
+                const lblViewBidsModalNoBids = document.getElementById('lblViewBidsModalNoBids');
+                lblViewBidsModalNoBids.classList.remove('visually-hidden');
+            } else {
+                const templateContent = document.getElementById('bidTemplate').content;
+
+                // Create a card for each car in data
+                for (const key in data) {
+                    const bidData = data[key];
+
+                    // Copy the HTML from the template in index.html
+                    const copyHTML = document.importNode(templateContent, true);
+
+                    // Modify each part in the template with the appropriate data
+
+                    copyHTML.querySelector('.bidCardUser').textContent = bidData.user;
+                    copyHTML.querySelector('.bidCardBid').textContent = '£' + bidData.bid;
+                    copyHTML.querySelector('.bidCardTimestamp').textContent = timestampToString(bidData.timestamp);
+
+                    // Append card to the card-layout
+                    bidListElt.appendChild(copyHTML);
+                }
+            }
+        }
+    });
+
+    btnPlaceBid.addEventListener('click', function (event) {
+        clearPlaceBidModal();
+    });
+}
+
+function clearPlaceBidModal () {
+    for (let i = 0; i < placeBidModalInputElmtNames.length; i++) {
+        // Get the specific DOM input element
+        const elementString = 'validationModal' + placeBidModalInputElmtNames[i];
+        const element = document.getElementById(elementString);
+
+        // Clear value and reset validity feedback
+        element.value = '';
+        element.classList.remove('is-valid');
+        element.classList.remove('is-invalid');
+    }
+}
+
+// Do these when the DOM contents loads i.e. website loads
 document.addEventListener('DOMContentLoaded', switchtoMainPage);
-
-// Purpose: Attach on-click listeners to NavBar buttons
 document.addEventListener('DOMContentLoaded', attachNavBarListeners);
-
-// Purpose: Attach modal on-click event listeners
 document.addEventListener('DOMContentLoaded', attachModalEventListeners);
-
-// Purpose: Attach on-click listeners to OneCarView page
 document.addEventListener('DOMContentLoaded', attachOneCarViewListeners);
