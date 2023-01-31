@@ -9,100 +9,101 @@ function clearCardLayout() {
 }
 
 /*
- Makes a fetch request to server to get all car data
- Loads data about each car into a template card
- Appends each card into the card-layout
+ Load all cars in the DB into the DOM
  Code from: https://web.dev/fetch-api-error-handling/
 */
 async function loadCars() {
-    let data;
+    let data, response;
 
     // Make the GET request and handle errors
     try {
-        const response = await fetch(endpointRoot + 'cars/');
+        response = await fetch(endpointRoot + 'cars/');
         data = await response.json();
     } catch (error) {
         if (error instanceof SyntaxError) {
-            // Unexpected token < in JSON
-            console.log('There was a SyntaxError', error);
+            // There was a SyntaxError
         } else {
             showNetworkErrorModal();
         }
     }
 
-    // Handle the case where data was fetched successfully
-    if (data) {
+    // Update DOM depending on the response sent from the server
+    if (response?.ok) {
         clearCardLayout();
 
+        // carList will store all the cards and templateContent is template for each card
         const carListElt = document.getElementById('carList');
         const templateContent = document.getElementById('carCardTemplate').content;
 
-        // Create a card for each car in data
+        // Create a card for each car
         for (const key in data) {
             const carData = data[key];
 
-            // Copy the HTML from the template in index.html
+            // Copy the HTML from the template
             const copyHTML = document.importNode(templateContent, true);
 
             // Modify each part in the template with the appropriate data
-            const carName = capitalise(carData.make + ' ' + carData.model);
+            // Name of the car
+            const carFullName = capitalise(carData.make + ' ' + carData.model);
 
-            copyHTML.querySelector('.card-car-title').textContent = carName;
+            // Update all the text fields in the card
+            copyHTML.querySelector('.card-car-title').textContent = carFullName;
             copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
             copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
             copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
             copyHTML.querySelector('.card-car').id = 'carID:' + key;
 
+            // Update the image in the card
             copyHTML.querySelector('.spinner-border').classList.add('visually-hidden');
             copyHTML.querySelector('.card-img-rounded').classList.remove('visually-hidden');
             copyHTML.querySelector('.card-img-rounded').src = carData.image;
-            copyHTML.querySelector('.card-img-rounded').alt = 'Image of ' + carName;
+            copyHTML.querySelector('.card-img-rounded').alt = 'Image of ' + carFullName;
 
-            // Append card to the card-layout
+            // Append card to the Card Layout
             carListElt.appendChild(copyHTML);
         }
 
-        // Attach an on-click event-listener to each so that its id is logged to console when clicked
-        const listItems = carListElt.querySelectorAll('.card-car');
-        for (const listItem of listItems) {
-            listItem.addEventListener('click', (event) => {
-                const id = listItem.id.split(':')[1];
+        // Attach an onClick Listener to each card so that the user can navigate load in specific cars on another page
+        const listCards = carListElt.querySelectorAll('.card-car');
+        for (const card of listCards) {
+            card.addEventListener('click', (event) => {
+                // ID of the car to load in is stored within each card in the DOM
+                const id = card.id.split(':')[1];
                 loadCar(id);
             });
         }
 
+        // Scroll the user to the top of the page on reload
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }
 
-// Loads different page which shows details about the spcific car clicked
+// Switch to different page which shows details about the specific car clicked
 async function loadCar(id) {
-    let data;
+    let data, response;
 
-    // Make the GET request and handle errors
+    // Make fetch request and handle any network errors
     try {
-        const response = await fetch(endpointRoot + 'cars/' + id);
+        response = await fetch(endpointRoot + 'cars/' + id);
         data = await response.json();
     } catch (error) {
         if (error instanceof SyntaxError) {
-            // Unexpected token < in JSON
-            console.log('There was a SyntaxError', error);
+            // There was a SyntaxError
         } else {
             showNetworkErrorModal();
         }
     }
 
-    // Handle the case where data was fetched successfully
-    if (data) {
+    // Update DOM depending on the response and data sent from the server
+    if (response?.ok) {
         currentlyLoadedCar = id;
 
         switchtoOneCarViewPage();
 
+        // Get references to each element in the DOM
         const oneCarViewImage = document.getElementById('oneCarViewImage');
         const oneCarViewCarTitle = document.getElementById('oneCarViewCarTitle');
         const oneCarViewBuyPrice = document.getElementById('oneCarViewBuyPrice');
-        // const oneCarViewBidPrice = document.getElementById('oneCarViewBidPrice');
-        // const lblNumberOfBids = document.getElementById('lblNumberOfBids');
         const oneCarViewMake = document.getElementById('oneCarViewMake');
         const oneCarViewModel = document.getElementById('oneCarViewModel');
         const oneCarViewYear = document.getElementById('oneCarViewYear');
@@ -110,20 +111,27 @@ async function loadCar(id) {
         const oneCarViewColour = document.getElementById('oneCarViewColour');
         const oneCarViewDate = document.getElementById('oneCarViewDate');
 
-        oneCarViewImage.src = data.image;
-        oneCarViewCarTitle.innerText = capitalise(data.make + ' ' + data.model);
-        oneCarViewBuyPrice.innerText = data.price;
+        // Name of the car
+        const carFullName = capitalise(data.make + ' ' + data.model);
+        oneCarViewCarTitle.innerText = carFullName;
 
+        // Load image into the DOM
+        oneCarViewImage.src = data.image;
+        oneCarViewImage.alt = 'Image of ' + carFullName;
+
+        // Specify the values of all the other text data fields
+        oneCarViewBuyPrice.innerText = data.price;
         oneCarViewMake.innerText = capitalise(data.make);
         oneCarViewModel.innerText = capitalise(data.model);
         oneCarViewYear.innerText = data.year;
         oneCarViewMileage.innerText = data.mileage;
         oneCarViewColour.innerText = capitalise(data.color);
-
         oneCarViewDate.innerText = timestampToString(data.creation_date);
 
+        // Load all the dynamic data about the bids on the car
         loadBidInfo(id);
 
+        // Scroll the user to the top of the page on reload
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }
@@ -135,8 +143,7 @@ function loadBidInfo (id) {
 }
 // Update the DOM element which shows the current highest bid on a car listing
 async function loadBidInfoMax (id) {
-    let data;
-    let response;
+    let data, response;
 
     // Make fetch request and handle any network errors
     try {
@@ -164,8 +171,7 @@ async function loadBidInfoMax (id) {
 }
 // Update the DOM element which shows the number of bids a car listing has
 async function loadBidInfoNum (id) {
-    let data;
-    let response;
+    let data, response;
 
     // Make fetch request and handle any network errors
     try {
