@@ -120,8 +120,7 @@ async function loadCar(id) {
         oneCarViewMileage.innerText = data.mileage;
         oneCarViewColour.innerText = capitalise(data.color);
 
-        const creationDate = new Date(data.creation_date);
-        oneCarViewDate.innerText = creationDate.toLocaleDateString('en-UK') + ' ' + creationDate.toLocaleTimeString('en-UK');
+        oneCarViewDate.innerText = timestampToString(data.creation_date);
 
         loadBidInfo(id);
 
@@ -210,6 +209,11 @@ function capitalise(str) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
     return arr.join(' ');
+}
+
+function timestampToString(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-UK') + ' ' + date.toLocaleTimeString('en-UK');
 }
 
 // All the input DOM element in the modal begin with validationModal
