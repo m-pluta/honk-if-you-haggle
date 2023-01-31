@@ -62,6 +62,10 @@ app.post('/cars', function (req, resp) {
     const currentDate = new Date();
     details.creation_date = currentDate.getTime();
 
+    details.year = parseInt(details.year);
+    details.mileage = parseInt(details.mileage);
+    details.price = parseFloat(details.price);
+
     // Add the car and its details to the DB
     DbData.cars[generatedID] = details;
 
@@ -190,6 +194,8 @@ app.post('/bids', function (req, resp) {
     // Add timestamp to the details of the bid
     const currentDate = new Date();
     details.timestamp = currentDate.getTime();
+
+    details.bid = parseFloat(details.bid);
 
     // Add the bid and its details to the DB
     DbData.bids[generatedID] = details;

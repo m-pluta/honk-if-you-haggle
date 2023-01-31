@@ -49,8 +49,8 @@ async function loadCars() {
             // Update all the text fields in the card
             copyHTML.querySelector('.card-car-title').textContent = carFullName;
             copyHTML.querySelector('.card-car-year').innerHTML = `<strong>Year: </strong> ${carData.year}`;
-            copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${carData.mileage}`;
-            copyHTML.querySelector('.card-car-price').textContent = `£${carData.price}`;
+            copyHTML.querySelector('.card-car-mileage').innerHTML = `<strong>Mileage: </strong> ${addCommasToNumbers(carData.mileage)}`;
+            copyHTML.querySelector('.card-car-price').textContent = `£${addCommasToNumbers(carData.price)}`;
             copyHTML.querySelector('.card-car').id = 'carID:' + key;
 
             // Update the image in the card
@@ -120,11 +120,11 @@ async function loadCar(id) {
         oneCarViewImage.alt = 'Image of ' + carFullName;
 
         // Specify the values of all the other text data fields
-        oneCarViewBuyPrice.innerText = data.price;
+        oneCarViewBuyPrice.innerText = addCommasToNumbers(data.price);
         oneCarViewMake.innerText = capitalise(data.make);
         oneCarViewModel.innerText = capitalise(data.model);
         oneCarViewYear.innerText = data.year;
-        oneCarViewMileage.innerText = data.mileage;
+        oneCarViewMileage.innerText = addCommasToNumbers(data.mileage);
         oneCarViewColor.innerText = capitalise(data.color);
         oneCarViewDate.innerText = timestampToString(data.creation_date);
 
@@ -163,7 +163,7 @@ async function loadBidInfoMax(id) {
         if (data?.message === 'No bids found') {
             oneCarViewBidPrice.innerText = 'No bids made yet';
         } else {
-            oneCarViewBidPrice.innerText = '£' + data.bid;
+            oneCarViewBidPrice.innerText = '£' + addCommasToNumbers(data.bid);
         }
     } else if (response?.status === 404) {
         // 'Car not found'
@@ -252,6 +252,10 @@ function timestampToString(timestamp) {
     return date.toLocaleDateString('en-UK') + ' ' + date.toLocaleTimeString('en-UK');
 }
 
+function addCommasToNumbers(number) {
+    return number.toLocaleString('en-UK', { useGrouping: true });
+}
+
 // All the input DOM elements in the modals begin with validationModal
 // These are the suffixes that go after this prefix
 const newCarModalInputElmtNames = ['Image', 'Make', 'Model', 'Year', 'Mileage', 'Color', 'Price'];
@@ -311,12 +315,12 @@ function checkInputElementValidity(inputElmt) {
             break;
         case 'validationModalMake':
         case 'validationModalColor':
-        case 'validationModalUsername':
             // Cannot be only whitespace
             // Must be upper/lower case letters with whitespace
             regex = /^(?=\S)[A-Za-z\s]+$/;
             break;
         case 'validationModalModel':
+        case 'validationModalUsername':
             // Cannot be only whitespace
             // Must be upper/lower case letters or numbers with whitespace
             regex = /^(?=\S)[A-Za-z\d\s]+$/;
@@ -407,6 +411,11 @@ async function attachSubmitButtonListener() {
             // eslint-disable-next-line no-undef
             const data = new FormData(newCarForm);
 
+            // Remove all commas from number input
+            data.set('year', data.get('year').replaceAll(',', ''));
+            data.set('mileage', data.get('mileage').replaceAll(',', ''));
+            data.set('price', data.get('price').replaceAll(',', ''));
+
             // Convert from FormData to JSON
             // Code from: https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json
             let dataJSON = JSON.stringify(Object.fromEntries(data));
@@ -468,6 +477,9 @@ function attachModalPlaceBidListener() {
             const placeBidForm = document.getElementById('placeBidForm');
             // eslint-disable-next-line no-undef
             const data = new FormData(placeBidForm);
+
+            // Remove all commas from number input
+            data.set('bid', data.get('bid').replaceAll(',', ''));
 
             // Append the car's ID to the bid
             data.append('carID', currentlyLoadedCar);
@@ -551,7 +563,7 @@ function attachViewBidsListener() {
 
                     // Modify each part in the template with the appropriate data
                     copyHTML.querySelector('.bidCardUser').textContent = bidData.user;
-                    copyHTML.querySelector('.bidCardBid').textContent = '£' + bidData.bid;
+                    copyHTML.querySelector('.bidCardBid').textContent = '£' + addCommasToNumbers(bidData.bid);
                     copyHTML.querySelector('.bidCardTimestamp').textContent = timestampToString(bidData.timestamp);
 
                     // Append card to the Card Layout
