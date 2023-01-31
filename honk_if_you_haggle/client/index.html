@@ -278,6 +278,21 @@
             </div>
         </div>
 
+        <!-- View Bids Modal -->
+        <div class="modal fade" id="viewBidsModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">View Bids</h5>
+                <button id="btnViewBidsModalClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bidList" class="row g-3"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <!-- Lost Connection Modal -->
         <div class="modal fade" id="lostConnectionModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -324,7 +339,7 @@
                                 </button>
                             </div>
                             <div class="center" style="font-size: 0.85rem;">
-                                <p id="btnViewBids" class="m-0 mt-2 previous-bids-text">View previous bids (<span id="lblNumberOfBids">0</span>)</p>
+                                <p id="btnViewBids" class="m-0 mt-2 previous-bids-text" data-bs-toggle="modal" data-bs-target="#viewBidsModal">View previous bids (<span id="lblNumberOfBids">0</span>)</p>
                             </div>
                         </div>
                     </div>
@@ -392,9 +407,23 @@
             </div>
         </div>
 
-        <!-- Template for image in each car card -->
-        <template>
-            <img src="" class="card-img-top card-img-rounded mt-2 mx-2" alt="" >
+        <!-- Template for each bid -->
+        <template id="bidTemplate">
+            <div class="col-12">
+                <div class="card" style="border-radius: 10px">
+                    <div class="card-body px-3 py-2">
+                        <h5 class="bidCardUser" style="text-align:left;">
+                            Michal Pluta
+                            <span class="bidCardBid" style="float:right;">
+                                £30000
+                            </span>
+                        </h5>
+                        <div class="center">
+                            <p class="m-0 mt-2 bidCardTimestamp" style="font-size: 80%">29/01/2023 17:46:24</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </template>
 
         <!-- Template for each car card -->
