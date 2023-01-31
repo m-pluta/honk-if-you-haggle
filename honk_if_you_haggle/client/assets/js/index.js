@@ -263,8 +263,59 @@ function attachOneCarViewListeners() {
         }
     });
 
-    btnViewBids.addEventListener('click', (event) => {
-        // Open modal
+    btnViewBids.addEventListener('click', async function (event) {
+        let data;
+
+        // Make the GET request and handle errors
+        try {
+            console.log(endpointRoot + 'bids/' + currentlyLoadedCar);
+            const response = await fetch(endpointRoot + 'bids/' + currentlyLoadedCar);
+            data = await response.json();
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                // Unexpected token < in JSON
+                console.log('There was a SyntaxError', error);
+            } else {
+                showNetworkErrorModal();
+            }
+        }
+
+        // Handle the case where data was fetched successfully
+        if (data) {
+            // Show the modal
+            // eslint-disable-next-line no-undef
+            const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
+                keyboard: false
+                });
+            myModal.show();
+
+            const bidListElt = document.getElementById('bidList');
+            bidListElt.innerHTML = '';
+
+            if (Object.keys(data).length === 0) {
+                const lblViewBidsModalNoBids = document.getElementById('lblViewBidsModalNoBids');
+                lblViewBidsModalNoBids.classList.remove('visually-hidden');
+            } else {
+                const templateContent = document.getElementById('bidTemplate').content;
+
+                // Create a card for each car in data
+                for (const key in data) {
+                    const bidData = data[key];
+
+                    // Copy the HTML from the template in index.html
+                    const copyHTML = document.importNode(templateContent, true);
+
+                    // Modify each part in the template with the appropriate data
+
+                    copyHTML.querySelector('.bidCardUser').textContent = bidData.user;
+                    copyHTML.querySelector('.bidCardBid').textContent = '£' + bidData.bid;
+                    copyHTML.querySelector('.bidCardTimestamp').textContent = timestampToString(bidData.timestamp);
+
+                    // Append card to the card-layout
+                    bidListElt.appendChild(copyHTML);
+                }
+            }
+        }
     });
 }
 
