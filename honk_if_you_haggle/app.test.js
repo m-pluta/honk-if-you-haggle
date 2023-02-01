@@ -4,6 +4,8 @@ const app = require('./app');
 
 // Information on how tests can be specified from: https://www.webtips.dev/webtips/jest/describe-vs-test-vs-it
 
+const fs = require('fs');
+
 // Import data from honk_if_you_haggle database
 const fileNameForJSON = './honk_if_you_haggle_db.json';
 const DbData = require(fileNameForJSON);
@@ -25,13 +27,21 @@ describe('GET /cars', () => {
         .expect('Content-type', /json/);
     });
 
+    it('Should return the same number of cars as there are in the database', () => {
+        return request(app)
+        .get('/cars')
+        .then(res => {
+            const numCarsInResponse = Object.keys(res.body).length;
+            const numCarsInDB = Object.keys(DbData.cars).length;
+            expect(numCarsInResponse).toEqual(numCarsInDB);
+        });
+    });
+
     it('Should return all the cars in the database', () => {
         return request(app)
         .get('/cars')
         .expect(DbData.cars);
     });
-
-    // Test fetching all and should include - valid
 });
 
 // Test GET /cars/:id endpoint
@@ -92,18 +102,35 @@ describe('POST /cars', () => {
         return request(app)
         .post('/cars')
         .send(params)
-        .expect(200);
+        .expect(200)
+        .then(res => {
+            delete DbData.cars[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
     });
 
     it('Should return JSON content-type', () => {
         return request(app)
-        .get('/cars')
+        .post('/cars')
         .send(params)
-        .expect('Content-type', /json/);
+        .expect('Content-type', /json/)
+        .then(res => {
+            delete DbData.cars[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
     });
 
-    // Should return the added car
-    // Remove the added cars after each post
+    it('Should return the car that was added to the database', () => {
+        return request(app)
+        .post('/cars')
+        .send(params)
+        .then(res => {
+            expect(DbData.cars[Object.keys(res.body).at(0)]);
+
+            delete DbData.cars[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
+    });
 });
 
 // Test GET /bids endpoint
@@ -120,13 +147,21 @@ describe('GET /bids', () => {
         .expect('Content-type', /json/);
     });
 
+    it('Should return the same number of bids as there are in the database', () => {
+        return request(app)
+        .get('/bids')
+        .then(res => {
+            const numBidsInResponse = Object.keys(res.body).length;
+            const numBidsInDB = Object.keys(DbData.bids).length;
+            expect(numBidsInResponse).toEqual(numBidsInDB);
+        });
+    });
+
     it('Should return all the bids in the database', () => {
         return request(app)
         .get('/bids')
         .expect(DbData.bids);
     });
-
-    // Test fetching all and should include - valid
 });
 
 // Test GET /bids/:id endpoint
@@ -147,7 +182,19 @@ describe('GET /bids/:id', () => {
             .expect('Content-type', /json/);
     });
 
-    // Test that it should return the correct bids when the ID specified exists for testID1
+    it('Should return the correct bids for a specific id', () => {
+        return request(app)
+            .get('/bids/' + testID1)
+            .then(res => {
+                const filteredData = {};
+                for (const bidID in DbData.bids) {
+                    if (DbData.bids[bidID].carID === testID1) {
+                        filteredData[bidID] = DbData.bids[bidID];
+                    }
+                }
+                expect(res.body).toEqual(filteredData);
+            });
+    });
 
     it('Should return a 200 status code when ID specified exists, but corresponding car has no bids', () => {
         return request(app)
@@ -204,7 +251,26 @@ describe('GET /bids/:id/max', () => {
             .expect('Content-type', /json/);
     });
 
-    // Test that it should return the correct bid when the ID specified exists for testID1
+    it('Should return the correct highest bid for a certain car', () => {
+        return request(app)
+            .get('/bids/' + testID1 + '/max')
+            .then(res => {
+                let maxBid = 0;
+                let maxBidID; // Target variable i.e. value of this is used later
+
+                // Find the ID of the bid with the largest value of `bid`
+                for (const bidID in DbData.bids) {
+                    const bidObj = DbData.bids[bidID];
+                    if (bidObj.bid > maxBid && bidObj.carID === testID1) {
+                        maxBid = bidObj.bid;
+                        maxBidID = bidID;
+                    }
+                }
+                expect(res.body).toEqual(DbData.bids[maxBidID]);
+            });
+    });
+
+    // TODO: Test that it should return the correct bid when the ID specified exists for testID1
 
     it('Should return a 200 status code when ID specified exists, but corresponding car has no bids', () => {
         return request(app)
@@ -261,7 +327,25 @@ describe('GET /bids/:id/num', () => {
             .expect('Content-type', /json/);
     });
 
-    // Test that it should return the correct bid when the ID specified exists for testID1
+    it('Should return the correct number of bids for a certain car', () => {
+        return request(app)
+            .get('/bids/' + testID1 + '/num')
+            .then(res => {
+                let counter = 0;
+
+                // Count the number of bids for that specific car
+                for (const bidID in DbData.bids) {
+                    const bidObj = DbData.bids[bidID];
+                    if (bidObj.carID === testID1) {
+                        counter++;
+                    }
+                }
+
+                expect(res.body.bids).toEqual(counter);
+            });
+    });
+
+    // TODO: Test that it should return the correct bid when the ID specified exists for testID1
 
     it('Should return a 200 status code when ID specified exists, but corresponding car has no bids', () => {
         return request(app)
@@ -312,16 +396,33 @@ describe('POST /bids', () => {
         return request(app)
         .post('/bids')
         .send(params)
-        .expect(200);
+        .expect(200)
+        .then(res => {
+            delete DbData.bids[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
     });
 
     it('Should return JSON content-type', () => {
         return request(app)
-        .get('/bids')
+        .post('/bids')
         .send(params)
-        .expect('Content-type', /json/);
+        .expect('Content-type', /json/)
+        .then(res => {
+            delete DbData.bids[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
     });
 
-    // Should return the added bid
-    // Remove the added bids after each post
+    it('Should return the bid that was added to the database', () => {
+        return request(app)
+        .post('/bids')
+        .send(params)
+        .then(res => {
+            expect(DbData.bids[Object.keys(res.body).at(0)]);
+
+            delete DbData.bids[Object.keys(res.body).at(0)];
+            fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
+        });
+    });
 });
