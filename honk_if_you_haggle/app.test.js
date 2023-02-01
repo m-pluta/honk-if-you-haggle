@@ -4,12 +4,14 @@ const app = require('./app');
 
 // Information on how tests can be specified from: https://www.webtips.dev/webtips/jest/describe-vs-test-vs-it
 
+// Node.js file system for working with files
 const fs = require('fs');
 
 // Import data from honk_if_you_haggle database
 const fileNameForJSON = './honk_if_you_haggle_db.json';
 const DbData = require(fileNameForJSON);
 
+// Error 404 messages returned by API
 const carNotFound = { message: 'Car not found' };
 const noBidsFound = { message: 'No bids found' };
 
@@ -31,8 +33,11 @@ describe('GET /cars', () => {
         return request(app)
         .get('/cars')
         .then(res => {
+            // Count number of cars in response
             const numCarsInResponse = Object.keys(res.body).length;
+            // Count number of cars in DB
             const numCarsInDB = Object.keys(DbData.cars).length;
+            // Compare
             expect(numCarsInResponse).toEqual(numCarsInDB);
         });
     });
@@ -46,6 +51,7 @@ describe('GET /cars', () => {
 
 // Test GET /cars/:id endpoint
 describe('GET /cars/:id', () => {
+    // IDs used in tests
     const testID = '73dc6baa-1699-4b12-b3df-febb78a20cd2';
     const nonExistentID = 'non-existent-ID';
 
@@ -88,6 +94,7 @@ describe('GET /cars/:id', () => {
 
 // Test POST /cars endpoint
 describe('POST /cars', () => {
+    // Parameters for the new car being created in the test
     const params = {
         image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bentley-continental-gt-speed-2-1632854763.jpeg',
         make: 'Bentley',
@@ -104,6 +111,7 @@ describe('POST /cars', () => {
         .send(params)
         .expect(200)
         .then(res => {
+            // Remove car added during test
             delete DbData.cars[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
@@ -115,6 +123,7 @@ describe('POST /cars', () => {
         .send(params)
         .expect('Content-type', /json/)
         .then(res => {
+            // Remove car added during test
             delete DbData.cars[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
@@ -125,8 +134,10 @@ describe('POST /cars', () => {
         .post('/cars')
         .send(params)
         .then(res => {
+            // The created car should have been sent back by the API
             expect(DbData.cars[Object.keys(res.body).at(0)]);
 
+            // Remove car added during test
             delete DbData.cars[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
@@ -151,8 +162,11 @@ describe('GET /bids', () => {
         return request(app)
         .get('/bids')
         .then(res => {
+            // Count number of bids in response
             const numBidsInResponse = Object.keys(res.body).length;
+            // Count number of bids in DB
             const numBidsInDB = Object.keys(DbData.bids).length;
+            // Compare
             expect(numBidsInResponse).toEqual(numBidsInDB);
         });
     });
@@ -166,6 +180,7 @@ describe('GET /bids', () => {
 
 // Test GET /bids/:id endpoint
 describe('GET /bids/:id', () => {
+    // IDs used in tests
     const testID1 = '73dc6baa-1699-4b12-b3df-febb78a20cd2';
     const testID2 = '589cdccd-e046-4527-b218-5f4d84c31044';
     const nonExistentID = 'non-existent-ID';
@@ -186,12 +201,14 @@ describe('GET /bids/:id', () => {
         return request(app)
             .get('/bids/' + testID1)
             .then(res => {
+                // Naive way of finding all bids for a specific car
                 const filteredData = {};
                 for (const bidID in DbData.bids) {
                     if (DbData.bids[bidID].carID === testID1) {
                         filteredData[bidID] = DbData.bids[bidID];
                     }
                 }
+                // Compare
                 expect(res.body).toEqual(filteredData);
             });
     });
@@ -235,6 +252,7 @@ describe('GET /bids/:id', () => {
 
 // Test GET /bids/:id/max endpoint
 describe('GET /bids/:id/max', () => {
+    // IDs used in tests
     const testID1 = '73dc6baa-1699-4b12-b3df-febb78a20cd2';
     const testID2 = '589cdccd-e046-4527-b218-5f4d84c31044';
     const nonExistentID = 'non-existent-ID';
@@ -255,8 +273,9 @@ describe('GET /bids/:id/max', () => {
         return request(app)
             .get('/bids/' + testID1 + '/max')
             .then(res => {
+                // Naive way of finding max bid for a specific car
                 let maxBid = 0;
-                let maxBidID; // Target variable i.e. value of this is used later
+                let maxBidID; // Target variable
 
                 // Find the ID of the bid with the largest value of `bid`
                 for (const bidID in DbData.bids) {
@@ -266,11 +285,10 @@ describe('GET /bids/:id/max', () => {
                         maxBidID = bidID;
                     }
                 }
+                // Compare
                 expect(res.body).toEqual(DbData.bids[maxBidID]);
             });
     });
-
-    // TODO: Test that it should return the correct bid when the ID specified exists for testID1
 
     it('Should return a 200 status code when ID specified exists, but corresponding car has no bids', () => {
         return request(app)
@@ -311,6 +329,7 @@ describe('GET /bids/:id/max', () => {
 
 // Test GET /bids/:id/num endpoint
 describe('GET /bids/:id/num', () => {
+    // IDs used in tests
     const testID1 = '73dc6baa-1699-4b12-b3df-febb78a20cd2';
     const testID2 = '589cdccd-e046-4527-b218-5f4d84c31044';
     const nonExistentID = 'non-existent-ID';
@@ -331,6 +350,7 @@ describe('GET /bids/:id/num', () => {
         return request(app)
             .get('/bids/' + testID1 + '/num')
             .then(res => {
+                // Naive way of calculating the number of bids for a specific car
                 let counter = 0;
 
                 // Count the number of bids for that specific car
@@ -340,12 +360,10 @@ describe('GET /bids/:id/num', () => {
                         counter++;
                     }
                 }
-
+                // Compare
                 expect(res.body.bids).toEqual(counter);
             });
     });
-
-    // TODO: Test that it should return the correct bid when the ID specified exists for testID1
 
     it('Should return a 200 status code when ID specified exists, but corresponding car has no bids', () => {
         return request(app)
@@ -387,6 +405,7 @@ describe('GET /bids/:id/num', () => {
 // Test POST /bids endpoint
 describe('POST /bids', () => {
     const params = {
+        // Parameters for the new bid being created in the test
         user: 'Anonymous',
         bid: 12500,
         carID: '15d50423-4c09-402e-acb4-d6a170d3ed18'
@@ -398,6 +417,7 @@ describe('POST /bids', () => {
         .send(params)
         .expect(200)
         .then(res => {
+            // Remove bid added during test
             delete DbData.bids[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
@@ -409,6 +429,7 @@ describe('POST /bids', () => {
         .send(params)
         .expect('Content-type', /json/)
         .then(res => {
+            // Remove bid added during test
             delete DbData.bids[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
@@ -419,8 +440,10 @@ describe('POST /bids', () => {
         .post('/bids')
         .send(params)
         .then(res => {
+            // The created bid should have been sent back by the API
             expect(DbData.bids[Object.keys(res.body).at(0)]);
 
+            // Remove bid added during test
             delete DbData.bids[Object.keys(res.body).at(0)];
             fs.writeFileSync(fileNameForJSON, JSON.stringify(DbData));
         });
