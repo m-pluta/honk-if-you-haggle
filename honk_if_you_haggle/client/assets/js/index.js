@@ -317,13 +317,13 @@ function checkInputElementValidity(inputElmt) {
         case 'validationModalColor':
             // Cannot be only whitespace
             // Must be upper/lower case letters with whitespace
-            regex = /^(?=\S)[A-Za-z\s]+$/;
+            regex = /^(?=\S)[A-Za-z-_\s]+$/;
             break;
         case 'validationModalModel':
         case 'validationModalUsername':
             // Cannot be only whitespace
             // Must be upper/lower case letters or numbers with whitespace
-            regex = /^(?=\S)[A-Za-z_\d\s]+$/;
+            regex = /^(?=\S)[A-Za-z-_\d\s]+$/;
             break;
         case 'validationModalYear':
         case 'validationModalMileage':
