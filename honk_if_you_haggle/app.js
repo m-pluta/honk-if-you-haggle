@@ -100,16 +100,12 @@ app.get('/bids/:id', function (req, resp) {
     const carFound = DbData.cars[carID];
     // If car was found then continue, if not then return an appropriate message
     if (carFound) {
-        // Filter the data to include only the bids belonging to the specific car
-        let filteredData = {};
-        for (const bidID in DbData.bids) {
-            if (DbData.bids[bidID].carID === carID) {
-                filteredData[bidID] = DbData.bids[bidID];
-            }
-        }
-
-        // Sorts based on the value of timestamp
-        filteredData = Object.fromEntries(Object.entries(filteredData).sort((a, b) => b[1].timestamp - a[1].timestamp));
+        // Filter the data to include only the bids belonging to the specific car and sort based on the value of timestamp
+        const filteredData = Object.fromEntries(
+            Object.entries(DbData.bids)
+                .filter(([bidID, bid]) => bid.carID === carID)
+                .sort((a, b) => b[1].timestamp - a[1].timestamp)
+        );
 
         if (Object.keys(filteredData).length !== 0) {
             // If any bids are present then return them all
@@ -131,21 +127,17 @@ app.get('/bids/:id/max', function (req, resp) {
     const carFound = DbData.cars[carID];
     // If the car was found then continue, if not then return an appropriate message
     if (carFound) {
-        let maxBid = 0;
-        let maxBidID; // Target variable i.e. value of this is used later
+        const filteredData = Object.fromEntries(
+            Object.entries(DbData.bids)
+                .filter(([bidID, bid]) => bid.carID === carID)
+                .sort((a, b) => b[1].timestamp - a[1].timestamp)
+        );
 
-        // Find the ID of the bid with the largest value of `bid`
-        for (const bidID in DbData.bids) {
-            const bidObj = DbData.bids[bidID];
-            if (bidObj.bid > maxBid && bidObj.carID === carID) {
-                maxBid = bidObj.bid;
-                maxBidID = bidID;
-            }
-        }
+        if (Object.keys(filteredData).length !== 0) {
+            const bid = filteredData[Object.keys(filteredData)[0]];
 
-        if (maxBidID) {
             // If an ID for the max bid was found then return the bid object
-            resp.status(200).json(DbData.bids[maxBidID]);
+            resp.status(200).json(bid);
         } else {
             // Else return an appropriate message
             resp.status(200).send({ message: 'No bids found' });
@@ -164,18 +156,15 @@ app.get('/bids/:id/num', function (req, resp) {
     const carFound = DbData.cars[carID];
     // If the car was found then continue, if not then return an error 404
     if (carFound) {
-        let counter = 0;
+        const filteredData = Object.fromEntries(
+            Object.entries(DbData.bids)
+                .filter(([bidID, bid]) => bid.carID === carID)
+        );
 
-        // Count the number of bids for that specific car
-        for (const bidID in DbData.bids) {
-            const bidObj = DbData.bids[bidID];
-            if (bidObj.carID === carID) {
-                counter++;
-            }
-        }
+        const count = Object.keys(filteredData).length;
 
-        if (counter !== 0) {
-            resp.status(200).json({ bids: counter });
+        if (count !== 0) {
+            resp.status(200).json({ bids: count });
         } else {
             resp.status(200).send({ message: 'No bids found' });
         }
