@@ -534,9 +534,7 @@ function attachViewBidsListener() {
         if (response?.ok) {
             // Show the modal
             // eslint-disable-next-line no-undef
-            const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {
-                keyboard: false
-            });
+            const myModal = new bootstrap.Modal(document.getElementById('viewBidsModal'), {});
             myModal.show();
 
             // Clear the layout which stores all the bids displayed

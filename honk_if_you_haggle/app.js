@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.json());
 
 // Import data from honk_if_you_haggle database
-const fileNameForJSON = '.' + path.sep + 'honk_if_you_haggle_db.json';
+const fileNameForJSON = './honk_if_you_haggle_db.json';
 const DbData = require(fileNameForJSON);
 
 // Returns all the cars in order from newest to oldest
