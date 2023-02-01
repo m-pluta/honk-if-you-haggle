@@ -4,7 +4,7 @@
   "description": "File for management of all dependencies in this project",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint server.js app.js client/assets/js/index.js",
+    "pretest": "eslint server.js app.js app.test.js client/assets/js/index.js",
     "start": "nodemon server.js",
     "test": "jest app.test.js"
   },
