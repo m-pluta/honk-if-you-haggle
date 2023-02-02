@@ -21,7 +21,7 @@
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     object-fit: contain; /* keep aspect ratio */
-    max-height: 30rem;
+    max-height: 34rem;
     min-height: 16rem;
 }
 
