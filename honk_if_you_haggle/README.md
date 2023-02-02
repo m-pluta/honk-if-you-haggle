@@ -27,3 +27,6 @@ The npm script commands to be used are:
 
 # Extra info
 IDs for all entities are generated using the UUIDv4 module
+
+# API Documentation
+https://documenter.getpostman.com/view/24580806/2s8ZDeTygV
