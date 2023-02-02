@@ -1,1 +1,0 @@
-The template for this project was sourced from https://startbootstrap.com/template/bare under an MIT License
