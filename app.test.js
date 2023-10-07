@@ -8,7 +8,7 @@ const app = require('./app');
 const fs = require('fs');
 
 // Import data from honk_if_you_haggle database
-const fileNameForJSON = './honk_if_you_haggle_db.json';
+const fileNameForJSON = './db.json';
 const DbData = require(fileNameForJSON);
 
 // Error 404 messages returned by API
