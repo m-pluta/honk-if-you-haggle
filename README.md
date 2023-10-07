@@ -1,16 +1,32 @@
-# Honk if you haggle
+# Template and license details
+The template for this project was sourced from https://startbootstrap.com/template/bare under an MIT License
 
-This is my attempt at a responsive website designed using Bootstrap during university for buying used cars.
+# Database and entities
+The JSON database is located in honk_if_you_haggle/honk_if_you_haggle_db.json
+The two entities are cars and bids
 
-I could not not find the CDN for the Bootstrap Bare template so thats why this project is 70% CSS. 
+# Server
+The server consists of honk_if_you_haggle/app.js and honk_if_you_haggle/server.js
+    app.js implements all the endpoints for the API
+    server.js starts the server on a specific project
 
-## Installation
+## Server set-up
+The port used for this application is 8080
+The server should by default start (on Windows) at http://127.0.0.1:8080/
 
-Clone the repo and execute `npm i` in the terminal in the main directory.
+# Front end
+The main HTML for the website is located in honk_if_you_haggle/client/index.html
+The main JS for the website is located in honk_if_you_haggle/client/assets/js/index.js
 
-Then run `npm run start` in the terminal to launch the node server. The website should launch at http://127.0.0.1:8080
+# NPM script commands
+The npm script commands to be used are:
+    npm install
+    npm start
+    npm pretest
+    npm test
 
-## Contributing
+# Extra info
+IDs for all entities are generated using the UUIDv4 module
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change
+# API Documentation
+https://documenter.getpostman.com/view/24580806/2s8ZDeTygV
